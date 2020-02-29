@@ -6,6 +6,7 @@ $name = trim($_POST['name']);
 
 // validate bằng php
 $nameerr = "";
+$nameExisterr = "";
 // check name
 if(strlen($name) < 2 || strlen($name) > 191){
     $nameerr = "Yêu cầu nhập tên loại thức ăn trong khoảng 2-191 ký tự";
@@ -14,8 +15,8 @@ if(strlen($name) < 2 || strlen($name) > 191){
 // check loại xe đã tồn tại hay chưa
 $checkTypeQuery = "select * from types where name = '$name'";
 $types = queryExecute($checkTypeQuery, true);
-if($nameerr == "" && count($types) > 0){
-    $nameerr = "Loại thức ăn đã tồn tại";
+if($nameExisterr == "" && count($types) > 0){
+    $nameExisterr = "Loại thức ăn đã tồn tại";
 }
 
 if($nameerr!= "" ){

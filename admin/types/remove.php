@@ -15,10 +15,10 @@ include_once "../../config/utils.php";
 checkAdminLoggedIn();
 $id = isset($_GET['id']) ? $_GET['id'] : -1;
 
-$getRemoveVehicleTypesQuery = "select * from types where id = $id";
-$removeVehicleTypes = queryExecute($getRemoveVehicleTypesQuery, false);
-if(!$removeVehicleTypes){
-    header("location: " . ADMIN_URL . "types?msg=Loại phương tiện không tồn tại");
+$getRemoveTypesQuery = "select * from types where id = $id";
+$removeTypes = queryExecute($getRemoveTypesQuery, false);
+if(!$removeTypes){
+    header("location: " . ADMIN_URL . "types?msg=Loại thực phẩm không tồn tại");
     die;
 }
 
@@ -27,7 +27,7 @@ if(!$removeVehicleTypes){
 //    die;
 //}
 
-$removeVehicleTypesQuery = "delete from types where id = $id";
-queryExecute($removeVehicleTypesQuery, false);
-header("location: " . ADMIN_URL . "types?msg=Xóa loại phương tiện thành công");
+$removeTypesQuery = "delete from types where id = $id";
+queryExecute($removeTypesQuery, false);
+header("location: " . ADMIN_URL . "types?msg=Xóa loại thực phẩm thành công");
 die;

@@ -12,7 +12,7 @@ $nameerr = "";
 
 // check name
 if(strlen($name) < 2 || strlen($name) > 191){
-    $nameerr = "Yêu cầu nhập loại phương tiện nằm trong khoảng 2-191 ký tự";
+    $nameerr = "Yêu cầu nhập loại thực phẩm nằm trong khoảng 2-191 ký tự";
 }
 
 if($nameerr != "" ){
@@ -21,11 +21,11 @@ if($nameerr != "" ){
 }
 
 
-$updateVehicleTypeQuery = "update types 
+$updateTypeQuery = "update types 
                     set
                           name = '$name'
                     where id = $id";
-                    // dd($updateVehicleTypeQuery);
-queryExecute($updateVehicleTypeQuery, false);
+                
+queryExecute($updateTypeQuery, false);
 header("location: " . ADMIN_URL . "types");
 die;

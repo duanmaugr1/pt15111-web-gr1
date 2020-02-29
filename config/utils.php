@@ -5,7 +5,7 @@ define('BASE_URL', 'http://localhost/pt15111-web-gr1/');
 define('ADMIN_URL', BASE_URL. 'admin/');
 define('PUBLIC_URL', BASE_URL. 'public/');
 define('ADMIN_ASSET_URL', BASE_URL . 'public/admin/');
-define('THEME_ASSET_URL', BASE_URL . 'public/blue/');
+define('THEME_ASSET_URL', BASE_URL . 'public/theme/');
 define('LOGINTHEME_ASSET_URL', BASE_URL . 'public/logintheme/');
 define('DEFAULT_IMAGE', BASE_URL. 'public/images/default-image.png');
 define('AUTH', 'AUTH_SESSION');

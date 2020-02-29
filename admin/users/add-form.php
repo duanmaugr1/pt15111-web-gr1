@@ -26,11 +26,16 @@ $roles = queryExecute($getRoleQuery, true);
         <!-- Content Header (Page header) -->
         <div class="content-header">
             <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Thêm tài khoản mới</h1>
-                    </div><!-- /.col -->
-                </div><!-- /.row -->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                                <h1 class="m-0 text-dark">Thêm tài khoản mới</h1>
+                            </div><!-- /.col -->
+
+                        </div><!-- /.row -->
+                    </div>
+                </div>
             </div><!-- /.container-fluid -->
         </div>
         <!-- /.content-header -->

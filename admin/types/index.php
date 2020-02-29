@@ -28,16 +28,16 @@ $foodTypes = queryExecute($getfoodTypesQuery, true);
         <!-- Content Header (Page header) -->
         <div class="content-header">
             <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Quản trị loại phương tiện</h1>
-                    </div><!-- /.col -->
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="<?= ADMIN_URL . 'dashboard' ?>">Dashboard</a></li>
-                        </ol>
-                    </div><!-- /.col -->
-                </div><!-- /.row -->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                                <h1 class="m-0 text-dark">LOẠI THỰC PHẨM</h1>
+                            </div><!-- /.col -->
+
+                        </div><!-- /.row -->
+                    </div>
+                </div>
             </div><!-- /.container-fluid -->
         </div>
         <!-- /.content-header -->
@@ -46,16 +46,16 @@ $foodTypes = queryExecute($getfoodTypesQuery, true);
         <section class="content">
             <div class="container-fluid">
                 <!-- Small boxes (Stat box) -->
-                <div class="row">
-                    <div class="col-md-10 col-offset-1">
-                        <!-- Filter  -->
-                    </div>
-                    <!-- Danh sách users  -->
-                    <table class="table table-stripped">
-                        <thead>
+               
+
+                <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <table id="example1" class="table table-bordered table-hover">
+                                <thead>
                         <th>ID</th>
                         <th>Loại thức ăn</th>
-                        <th>Trạng thái</th>
+                        <!-- <th>Trạng thái</th> -->
 
                         <th>
                             <a href="<?php echo ADMIN_URL . 'types/add-form.php' ?>" class="btn btn-primary btn-sm"><i
@@ -67,14 +67,7 @@ $foodTypes = queryExecute($getfoodTypesQuery, true);
                             <tr>
                                 <td><?php echo $type['id'] ?></td>
                                 <td><?php echo $type['name'] ?></td>
-                                <!-- <td><?php
-                                    if ($type['status'] == 1){
-                                        echo 'Có hiệu lực';
-                                    }
-                                    else {
-                                        echo 'Hết hiệu lực';
-                                    }
-                                    ?></td> -->
+                                
                                 <td>
                                     <a href="<?php echo ADMIN_URL . 'types/edit-form.php?id=' . $type['id'] ?>"
                                        class="btn btn-sm btn-info">
@@ -88,8 +81,13 @@ $foodTypes = queryExecute($getfoodTypesQuery, true);
                             </tr>
                         <?php endforeach; ?>
                         </tbody>
-                    </table>
-                </div>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+
                 <!-- /.row -->
 
             </div><!-- /.container-fluid -->
@@ -108,7 +106,7 @@ $foodTypes = queryExecute($getfoodTypesQuery, true);
             var redirectUrl = $(this).attr('href');
             Swal.fire({
                 title: 'Thông báo!',
-                text: "Bạn có chắc chắn muốn xóa tài khoản này?",
+                text: "Bạn có chắc chắn muốn xóa loại thức ăn này?",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -121,6 +119,9 @@ $foodTypes = queryExecute($getfoodTypesQuery, true);
             });
             return false;
         });
+        $("#example1").DataTable(
+        {"searching": false,}
+    );
         <?php if(isset($_GET['msg'])):?>
         Swal.fire({
             position: 'bottom-center',
