@@ -5,47 +5,93 @@ require_once "./config/utils.php";
 
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title></title>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="<?php echo BASE_URL . 'public/css/main.css'?>">
+    <title>Đăng nhập</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="<?= LOGINTHEME_ASSET_URL ?>images/icons/favicon.ico"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="<?= LOGINTHEME_ASSET_URL ?>vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="<?= LOGINTHEME_ASSET_URL ?>fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="<?= LOGINTHEME_ASSET_URL ?>fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="<?= LOGINTHEME_ASSET_URL ?>vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="<?= LOGINTHEME_ASSET_URL ?>vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="<?= LOGINTHEME_ASSET_URL ?>vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="<?= LOGINTHEME_ASSET_URL ?>css/util.css">
+    <link rel="stylesheet" type="text/css" href="<?= LOGINTHEME_ASSET_URL ?>css/main.css">
+    <!--===============================================================================================-->
 </head>
 <body>
-	<div class="container">
-		<div class="row">
-			<div class="col-4 offset-4">
-                <div class="login-logo">
-                    <a href="<?php echo BASE_URL ?>">
-                        <img src="<?php echo BASE_URL . 'p ublic/images/logo.ico'?>" alt="" class="img-thumbnail">
+
+<div class="limiter">
+    <div class="container-login100" style="background-image: url('<?= LOGINTHEME_ASSET_URL ?>images/avatar-01.png');">
+        <div class="wrap-login100 p-t-100 p-b-30">
+            <form class="login100-form validate-form" action="post-login.php" method="post">
+                <div class="d-flex justify-content-center">
+                    <?php if(isset($_GET['msg'])):?>
+                        <span class="text-danger"><?php echo $_GET['msg']?></span>
+                    <?php endif;?>
+                </div>
+                <div class="login100-form-avatar">
+                    <img src="<?= LOGINTHEME_ASSET_URL ?>images/avatar-01.jpg" alt="AVATAR">
+                </div>
+                <span class="login100-form-title  p-b-45">
+						Thỏa thích khám phá
+					</span>
+
+                <div class="wrap-input100 validate-input m-b-10" data-validate = "Email is required">
+                    <input class="input100" type="email" name="email" placeholder="Hãy điền e mail">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+							<i class="fa fa-user"></i>
+						</span>
+                </div>
+
+                <div class="wrap-input100 validate-input m-b-10" data-validate = "Password is required">
+                    <input class="input100" type="password" name="password" placeholder="Password">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+							<i class="fa fa-lock"></i>
+						</span>
+                </div>
+
+                <div class="container-login100-form-btn p-t-10">
+                    <button class="login100-form-btn" type="submit">
+                        Login
+                    </button>
+                </div>
+
+                <div class="text-center w-full" style="margin-top: 10px">
+                    <a class="txt1" href="<?= BASE_URL . 'register.php' ?>">
+                        Create new account
+                        <i class="fa fa-long-arrow-right"></i>
                     </a>
                 </div>
-				<form action="post-login.php" method="post">
-                    <div class="d-flex justify-content-center">
-                        <?php if(isset($_GET['msg'])):?>
-                        <span class="text-danger"><?php echo $_GET['msg']?></span>
-                        <?php endif;?>
-                    </div>
-					<div class="form-group">
-						<label for="email">Email address</label>
-						<input type="email" class="form-control" id="email" name="email" placeholder="Nhập Email">
-					</div>
-					<div class="form-group">
-						<label for="password">Password</label>
-						<input type="password" class="form-control" id="password" name="password">
-					</div>
-                    <div class="d-flex justify-content-center">
-					    <button type="submit" class="btn btn-primary">Submit</button>&nbsp;
-                        <a href="<?php echo BASE_URL?>" class="btn btn-danger">Cancel</a>
-                    </div>
-				</form>
-			</div>
-		</div>	
-		
-	</div>
-	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!--===============================================================================================-->
+<script src="<?= LOGINTHEME_ASSET_URL ?>vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+<script src="<?= LOGINTHEME_ASSET_URL ?>vendor/bootstrap/js/popper.js"></script>
+<script src="<?= LOGINTHEME_ASSET_URL ?>vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+<script src="<?= LOGINTHEME_ASSET_URL ?>vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+<script src="<?= LOGINTHEME_ASSET_URL ?>js/main.js"></script>
+
 </body>
 </html>

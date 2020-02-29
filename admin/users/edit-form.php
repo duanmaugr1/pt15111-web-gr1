@@ -15,7 +15,7 @@ if(!$user){
 }
 
 // kiểm tra xem có quyền để thực hiện edit hay không
-if($user['id'] != $_SESSION[AUTH]['id'] && $user['role_id'] >= $_SESSION[AUTH]['role_id'] ){
+if($user['id'] != $_SESSION[AUTH]['id'] && $user['role_id'] <= $_SESSION[AUTH]['role_id'] ){
     header("location: " . ADMIN_URL . 'users?msg=Bạn không có quyền sửa thông tin tài khoản này');die;
 }
 
@@ -54,66 +54,86 @@ if($user['id'] != $_SESSION[AUTH]['id'] && $user['role_id'] >= $_SESSION[AUTH]['
         <section class="content">
             <div class="container-fluid">
                 <!-- Small boxes (Stat box) -->
-                <form id="edit-user-form" action="<?= ADMIN_URL . 'users/save-edit.php'?>" method="post" enctype="multipart/form-data">
+                <form role="form" id="edit-user-form" action="<?= ADMIN_URL . 'users/save-edit.php'?>" method="post" enctype="multipart/form-data">
+                    <!-- /.card-body -->
                     <input type="hidden" name="id" value="<?= $user['id'] ?>">
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="">Tên người dùng<span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" name="name" value="<?= $user['name']?>">
-                                <?php if(isset($_GET['nameerr'])):?>
-                                    <label class="error"><?= $_GET['nameerr']?></label>
-                                <?php endif; ?>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Email<span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" name="email" value="<?= $user['email']?>">
-                                <?php if(isset($_GET['emailerr'])):?>
-                                    <label class="error"><?= $_GET['emailerr']?></label>
-                                <?php endif; ?>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Quyền</label>
-                                <select name="role_id" class="form-control">
-                                    <?php foreach ($roles as $ro):?>
-                                        <option value="<?= $ro['id'] ?>"
-                                            <?php if($ro['id'] == $user['role_id']): ?>
-                                                selected
-                                            <?php endif?>
-                                        >
-                                            <?= $ro['name'] ?>
-                                        </option>
-                                    <?php endforeach?>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Số điện thoại</label>
-                                <input type="text" class="form-control" name="phone_number" value="<?= $user['phone_number']?>">
-                            </div>
-                            <div class="form-group">
-                                <label for="">Số nhà</label>
-                                <input type="text" class="form-control" name="house_no" value="<?= $user['house_no']?>">
+                            <div class="card card-primary">
+                                <!-- /.card-header -->
+                                <!-- form start -->
+
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="">Tên người dùng<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="name" value="<?= $user['name']?>">
+                                        <?php if(isset($_GET['nameerr'])):?>
+                                            <label class="error"><?= $_GET['nameerr']?></label>
+                                        <?php endif; ?>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Email<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="email" value="<?= $user['email']?>">
+                                        <?php if(isset($_GET['emailerr'])):?>
+                                            <label class="error"><?= $_GET['emailerr']?></label>
+                                        <?php endif; ?>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6 offset-md-3">
+                                            <img src="<?= BASE_URL . $user['image'] ?>" id="preview-img" class="img-fluid">
+                                        </div>
+                                    </div>
+                                    <div class="input-group form-group">
+                                        <div class="input-group">
+                                            <label for="">Ảnh đại diện</label>
+                                        </div>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" name="avatar" onchange="encodeImageFileAsURL(this)">
+                                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.card-body -->
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="row">
-                                <div class="col-md-6 offset-md-3">
-                                    <img src="<?= BASE_URL . $user['avatar'] ?>" id="preview-img" class="img-fluid">
+                            <div class="card card-primary">
+                                <!-- /.card-header -->
+                                <!-- form start -->
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="">Quyền</label>
+                                        <select name="role_id" class="form-control select2" style="width: 100%;">
+                                            <?php foreach ($roles as $ro):?>
+                                                <option value="<?= $ro['id'] ?>"
+                                                    <?php if($ro['id'] == $user['role_id']): ?>
+                                                        selected
+                                                    <?php endif?>
+                                                >
+                                                    <?= $ro['name'] ?>
+                                                </option>
+                                            <?php endforeach?>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Số điện thoại <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="phone_number" value="<?= $user['phone_number']?>">
+                                    </div>
                                 </div>
+                                <!-- /.card-body -->
                             </div>
-                            <div class="form-group">
-                                <label for="">Ảnh đại diện</label>
-                                <input type="file" class="form-control" name="avatar" onchange="encodeImageFileAsURL(this)">
+                        </div>
+                        <div class="col-md-12 d-flex justify-content-end">
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Sửa</button>&nbsp;
+                                <a href="<?= ADMIN_URL . 'users'?>" class="btn btn-danger">Hủy</a>
                             </div>
 
-                        </div>
-                        <div class="col-12 d-flex justify-content-end">
-                            <button type="submit" class="btn btn-primary">Tạo</button>&nbsp;
-                            <a href="<?= ADMIN_URL . 'users'?>" class="btn btn-danger">Hủy</a>
                         </div>
                     </div>
-                </form>
 
+                </form>
                 <!-- /.row -->
 
             </div><!-- /.container-fluid -->
@@ -139,6 +159,12 @@ if($user['id'] != $_SESSION[AUTH]['id'] && $user['role_id'] >= $_SESSION[AUTH]['
         }
         reader.readAsDataURL(file);
     }
+    $('.select2').select2()
+
+    //Initialize Select2 Elements
+    $('.select2bs4').select2({
+        theme: 'bootstrap4'
+    })
     $('#edit-user-form').validate({
         rules:{
             name: {

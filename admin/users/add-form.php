@@ -28,7 +28,7 @@ $roles = queryExecute($getRoleQuery, true);
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Tạo tài khoản</h1>
+                        <h1 class="m-0 text-dark">Thêm tài khoản mới</h1>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
@@ -39,68 +39,92 @@ $roles = queryExecute($getRoleQuery, true);
         <section class="content">
             <div class="container-fluid">
                 <!-- Small boxes (Stat box) -->
-                <form id="add-user-form" action="<?= ADMIN_URL . 'users/save-add.php'?>" method="post" enctype="multipart/form-data">
+                <form role="form" id="add-user-form" action="<?= ADMIN_URL . 'users/save-add.php'?>" method="post" enctype="multipart/form-data">
+                    <!-- /.card-body -->
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="">Tên người dùng<span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" name="name">
-                                <?php if(isset($_GET['nameerr'])):?>
-                                    <label class="error"><?= $_GET['nameerr']?></label>
-                                <?php endif; ?>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Email<span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" name="email">
-                                <?php if(isset($_GET['emailerr'])):?>
-                                    <label class="error"><?= $_GET['emailerr']?></label>
-                                <?php endif; ?>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Mật khẩu<span class="text-danger">*</span></label>
-                                <input type="password" id="main-password" class="form-control" name="password">
-                                <?php if(isset($_GET['passworderr'])):?>
-                                    <label class="error"><?= $_GET['passworderr']?></label>
-                                <?php endif; ?>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Nhập lại mật khẩu<span class="text-danger">*</span></label>
-                                <input type="password" class="form-control" name="cfpassword">
-                            </div>
-                            <div class="form-group">
-                                <label for="">Quyền</label>
-                                <select name="role_id" class="form-control">
-                                    <?php foreach ($roles as $ro):?>
-                                        <option value="<?= $ro['id'] ?>"><?= $ro['name'] ?></option>
-                                    <?php endforeach?>
-                                </select>
+                            <div class="card card-primary">
+                                <!-- /.card-header -->
+                                <!-- form start -->
+
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="">Tên người dùng<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="name">
+                                        <?php if(isset($_GET['nameerr'])):?>
+                                            <label class="error"><?= $_GET['nameerr']?></label>
+                                        <?php endif; ?>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Email<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="email">
+                                        <?php if(isset($_GET['emailerr'])):?>
+                                            <label class="error"><?= $_GET['emailerr']?></label>
+                                        <?php endif; ?>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6 offset-md-3">
+                                            <img src="<?= DEFAULT_IMAGE ?>" id="preview-img" class="img-fluid">
+                                        </div>
+                                    </div>
+                                    <div class="input-group form-group">
+                                        <div class="input-group">
+                                            <label for="">Ảnh đại diện <span class="text-danger">*</span></label>
+                                        </div>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" name="avatar" onchange="encodeImageFileAsURL(this)">
+                                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.card-body -->
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="row">
-                                <div class="col-md-6 offset-md-3">
-                                    <img src="<?= DEFAULT_IMAGE ?>" id="preview-img" class="img-fluid">
+                            <div class="card card-primary">
+                                <!-- /.card-header -->
+                                <!-- form start -->
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="">Mật khẩu<span class="text-danger">*</span></label>
+                                        <input type="password" id="main-password" class="form-control" name="password">
+                                        <?php if(isset($_GET['passworderr'])):?>
+                                            <label class="error"><?= $_GET['passworderr']?></label>
+                                        <?php endif; ?>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Nhập lại mật khẩu<span class="text-danger">*</span></label>
+                                        <input type="password" class="form-control" name="cfpassword">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Quyền</label>
+                                        <select name="role_id" class="form-control select2" style="width: 100%;">
+                                            <?php foreach ($roles as $ro):?>
+                                                <option value="<?= $ro['id'] ?>"><?= $ro['name'] ?></option>
+                                            <?php endforeach?>
+                                        </select>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Số điện thoại <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="phone_number">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Ảnh đại diện<span class="text-danger">*</span></label>
-                                <input type="file" class="form-control" name="avatar" onchange="encodeImageFileAsURL(this)">
-                            </div>
-                            <div class="form-group">
-                                <label for="">Số điện thoại</label>
-                                <input type="text" class="form-control" name="phone_number">
-                            </div>
-                            <div class="form-group">
-                                <label for="">Số nhà</label>
-                                <input type="text" class="form-control" name="house_no">
+                                <!-- /.card-body -->
                             </div>
                         </div>
-                        <div class="col-12 d-flex justify-content-end">
-                            <button type="submit" class="btn btn-primary">Tạo</button>&nbsp;
-                            <a href="<?= ADMIN_URL . 'users'?>" class="btn btn-danger">Hủy</a>
+                        <div class="col-md-12 d-flex justify-content-end">
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Tạo</button>&nbsp;
+                                <a href="<?= ADMIN_URL . 'users'?>" class="btn btn-danger">Hủy</a>
+                            </div>
+
                         </div>
                     </div>
+
                 </form>
+
                 <!-- /.row -->
 
             </div><!-- /.container-fluid -->
@@ -116,18 +140,25 @@ $roles = queryExecute($getRoleQuery, true);
 <script>
     function encodeImageFileAsURL(element) {
         var file = element.files[0];
-        if(file === undefined){
+        if (file === undefined) {
             $('#preview-img').attr('src', "<?= DEFAULT_IMAGE ?>");
             return false;
         }
         var reader = new FileReader();
-        reader.onloadend = function() {
+        reader.onloadend = function () {
             $('#preview-img').attr('src', reader.result)
         }
         reader.readAsDataURL(file);
     }
+    $('.select2').select2()
+
+    //Initialize Select2 Elements
+    $('.select2bs4').select2({
+        theme: 'bootstrap4'
+    })
+
     $('#add-user-form').validate({
-        rules:{
+        rules: {
             name: {
                 required: true,
                 maxlength: 191
@@ -140,13 +171,13 @@ $roles = queryExecute($getRoleQuery, true);
                     url: "<?= ADMIN_URL . 'users/verify-email-existed.php'?>",
                     type: "post",
                     data: {
-                        email: function() {
-                            return $( "input[name='email']" ).val();
+                        email: function () {
+                            return $("input[name='email']").val();
                         }
                     }
                 }
             },
-            password:{
+            password: {
                 required: true,
                 maxlength: 191
             },
@@ -157,7 +188,7 @@ $roles = queryExecute($getRoleQuery, true);
             phone_number: {
                 number: true
             },
-            house_no:{
+            house_no: {
                 maxlength: 191
             },
             avatar: {
@@ -176,7 +207,7 @@ $roles = queryExecute($getRoleQuery, true);
                 email: "Không đúng định dạng email",
                 remote: "Email đã tồn tại, vui lòng sử dụng email khác"
             },
-            password:{
+            password: {
                 required: "Hãy nhập mật khẩu",
                 maxlength: "Số lượng ký tự tối đa bằng 191 ký tự"
             },
@@ -189,7 +220,7 @@ $roles = queryExecute($getRoleQuery, true);
                 max: "Bắt buộc là số có 10 chữ số",
                 number: "Nhập định dạng số"
             },
-            house_no:{
+            house_no: {
                 maxlength: "Số lượng ký tự tối đa bằng 191 ký tự"
             },
             avatar: {

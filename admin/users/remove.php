@@ -22,7 +22,7 @@ if(!$removeUser){
     die;
 }
 
-if($removeUser['role_id'] >= $_SESSION[AUTH]['role_id']){
+if($removeUser['role_id'] <= $_SESSION[AUTH]['role_id']){
     header("location: " . ADMIN_URL . "users?msg=Không đủ quyền hạn thực hiện hành động này");
     die;
 }

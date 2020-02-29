@@ -3,7 +3,7 @@
     <a href="index3.html" class="brand-link">
         <img src="<?= ADMIN_ASSET_URL ?>dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
              style="opacity: .8">
-        <span class="brand-text font-weight-light">ICID Complex</span>
+        <span class="brand-text font-weight-light">FOOD_DRINK</span>
     </a>
 
     <!-- Sidebar -->
@@ -11,7 +11,7 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="<?= BASE_URL . $_SESSION[AUTH]['avatar'] ?>" class="img-circle elevation-2" alt="User Image">
+            <img src="<?php echo BASE_URL . $_SESSION[AUTH]['image'] ?>" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
                 <a href="#" class="d-block"><?= $_SESSION[AUTH]['name']?></a>
@@ -56,46 +56,103 @@
                 </li>
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fa fa-truck"></i>
+                        <i class="fas fa-utensils nav-icon"></i>
                         <p>
-                            Loại phương tiện
+                            Thực phẩm
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="<?= ADMIN_URL . 'vehicle_types'?>" class="nav-link">
+                            <a href="<?= ADMIN_URL . 'foods'?>" class="nav-link">
                                 <i class="fa fa-list-ol nav-icon"></i>
                                 <p>Danh sách</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= ADMIN_URL . 'vehicle_types/add-form.php'?>" class="nav-link">
+                            <a href="<?= ADMIN_URL . 'foods/add-form.php'?>" class="nav-link">
                                 <i class="fa fa-plus nav-icon"></i>
-                                <p>Thêm loại phương tiện</p>
+                                <p>Thêm thực phẩm</p>
                             </a>
                         </li>
                     </ul>
                 </li>
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fa fa-motorcycle"></i>
+                        <i class="fas fa-hotdog nav-icon"></i>
                         <p>
-                            Phương tiện
+                            Loại thực phẩm
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="<?= ADMIN_URL . 'vehicles'?>" class="nav-link">
+                            <a href="<?= ADMIN_URL . 'types'?>" class="nav-link">
                                 <i class="fa fa-list-ol nav-icon"></i>
                                 <p>Danh sách</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= ADMIN_URL . 'vehicles/add-form.php'?>" class="nav-link">
+                            <a href="<?= ADMIN_URL . 'types/add-form.php'?>" class="nav-link">
                                 <i class="fa fa-plus nav-icon"></i>
-                                <p>Thêm phương tiện</p>
+                                <p>Thêm loại thực phẩm</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-map-marked-alt nav-icon"></i>
+                        <p>
+                            Địa điểm
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= ADMIN_URL . 'places'?>" class="nav-link">
+                                <i class="fa fa-list-ol nav-icon"></i>
+                                <p>Danh sách</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= ADMIN_URL . 'places/add-form.php'?>" class="nav-link">
+                                <i class="fa fa-plus nav-icon"></i>
+                                <p>Thêm địa điểm</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-star-half-alt nav-icon"></i>
+                        <p>
+                            Đánh giá
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= ADMIN_URL . 'ratings'?>" class="nav-link">
+                                <i class="fa fa-list-ol nav-icon"></i>
+                                <p>Danh sách</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-comments nav-icon"></i>
+                        <p>
+                            Bình luận
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= ADMIN_URL . 'foods'?>" class="nav-link">
+                                <i class="fa fa-list-ol nav-icon"></i>
+                                <p>Danh sách</p>
                             </a>
                         </li>
                     </ul>

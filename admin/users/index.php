@@ -22,7 +22,7 @@ if($keyword !== ""){
     $getUsersQuery .= " where (u.email like '%$keyword%' 
                             or u.phone_number like '%$keyword%'  
                             or u.name like '%$keyword%'  
-                            or u.house_no like '%$keyword%'  )
+                            )
                       ";
     if($roleId !== false && $roleId !== ""){
         $getUsersQuery .= " and u.role_id = $roleId";
@@ -55,16 +55,16 @@ $users = queryExecute($getUsersQuery, true);
         <!-- Content Header (Page header) -->
         <div class="content-header">
             <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Quản trị users</h1>
-                    </div><!-- /.col -->
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="<?= ADMIN_URL ?>">Dashboard</a></li>
-                        </ol>
-                    </div><!-- /.col -->
-                </div><!-- /.row -->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                                <h1 class="m-0 text-dark">QUẢN TRỊ NGƯỜI DÙNG</h1>
+                            </div><!-- /.col -->
+
+                        </div><!-- /.row -->
+                    </div>
+                </div>
             </div><!-- /.container-fluid -->
         </div>
         <!-- /.content-header -->
@@ -79,10 +79,10 @@ $users = queryExecute($getUsersQuery, true);
                         <form action="" method="get">
                             <div class="form-row">
                                 <div class="form-group col-6">
-                                    <input type="text" value="<?php echo $keyword?>" class="form-control" name="keyword" placeholder="Nhập tên, email, căn hộ, số điện thoại,...">
+                                    <input type="text" value="<?php echo $keyword?>" class="form-control" name="keyword" placeholder="Nhập tên, email, số điện thoại,...">
                                 </div>
                                 <div class="form-group col-4">
-                                    <select name="role" class="form-control" >
+                                    <select name="role" class="form-control select2" >
                                         <option selected value="">Tất cả</option>
                                         <?php foreach($roles as $ro): ?>
                                             <option
@@ -98,51 +98,56 @@ $users = queryExecute($getUsersQuery, true);
                         </form>
                     </div>
                     <!-- Danh sách users  -->
-                    <table class="table table-stripped">
-                        <thead>
-                        <th>ID</th>
-                        <th>Tên</th>
-                        <th>Email</th>
-                        <th>Loại tài khoản</th>
-                        <th width="100">Ảnh</th>
-                        <th>Căn hộ</th>
-                        <th>Số ĐT</th>
-                        <th>Số lượng xe</th>
-                        <th>
-                            <a href="<?php echo ADMIN_URL . 'users/add-form.php'?>" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Thêm</a>
-                        </th>
-                        </thead>
-                        <tbody>
-                        <?php foreach ($users as $us): ?>
-                            <tr>
-                                <td><?php echo $us['id']?></td>
-                                <td><?php echo $us['name']?></td>
-                                <td><?php echo $us['email']?></td>
-                                <td>
-                                    <?php echo $us['role_name']?>
-                                </td>
-                                <td>
-                                    <img class="img-fluid" src="<?= BASE_URL . $us['avatar']?>" alt="">
-                                </td>
-                                <td><?php echo $us['house_no']?></td>
-                                <td><?php echo $us['phone_number']?></td>
-                                <td><?php echo $us['id']?></td>
-                                <td>
-                                    <?php if($us['role_id'] < $_SESSION[AUTH]['role_id'] || $us['id'] === $_SESSION[AUTH]['id']): ?>
-                                        <a href="<?php echo ADMIN_URL . 'users/edit-form.php?id=' . $us['id'] ?>" class="btn btn-sm btn-info">
-                                            <i class="fa fa-pencil-alt"></i>
-                                        </a>
-                                    <?php endif; ?>
-                                    <?php if($us['role_id'] < $_SESSION[AUTH]['role_id']): ?>
-                                        <a href="<?php echo ADMIN_URL . 'users/remove.php?id=' . $us['id'] ?>" class="btn-remove btn btn-sm btn-danger">
-                                            <i class="fa fa-trash"></i>
-                                        </a>
-                                    <?php endif; ?>
-                                </td>
-                            </tr>
-                        <?php endforeach;?>
-                        </tbody>
-                    </table>
+
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <table id="example1" class="table table-bordered table-hover">
+                                    <thead>
+                                    <th>ID</th>
+                                    <th>Tên</th>
+                                    <th>Email</th>
+                                    <th>Loại tài khoản</th>
+                                    <th width="100">Ảnh</th>
+                                    <th>Số ĐT</th>
+                                    <th>
+                                        <a href="<?php echo ADMIN_URL . 'users/add-form.php'?>" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Thêm</a>
+                                    </th>
+                                    </thead>
+                                    <tbody>
+                                    <?php foreach ($users as $us): ?>
+                                        <tr>
+                                            <td><?php echo $us['id']?></td>
+                                            <td><?php echo $us['name']?></td>
+                                            <td><?php echo $us['email']?></td>
+                                            <td>
+                                                <?php echo $us['role_name']?>
+                                            </td>
+                                            <td>
+                                                <img class="img-fluid" src="<?= BASE_URL . $us['image']?>" alt="">
+                                            </td>
+                                            <td><?php echo $us['phone_number']?></td>
+                                            <td>
+                                                <?php if($us['role_id'] > $_SESSION[AUTH]['role_id'] || $us['role_id'] === $_SESSION[AUTH]['role_id']): ?>
+                                                    <a href="<?php echo ADMIN_URL . 'users/edit-form.php?id=' . $us['id'] ?>" class="btn btn-sm btn-info">
+                                                        <i class="fa fa-pencil-alt"></i>
+                                                    </a>
+                                                <?php endif; ?>
+                                                <?php if($us['role_id'] > $_SESSION[AUTH]['role_id']): ?>
+                                                    <a href="<?php echo ADMIN_URL . 'users/remove.php?id=' . $us['id'] ?>" class="btn-remove btn btn-sm btn-danger">
+                                                        <i class="fa fa-trash"></i>
+                                                    </a>
+                                                <?php endif; ?>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach;?>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
                 </div>
                 <!-- /.row -->
 
@@ -177,14 +182,23 @@ $users = queryExecute($getUsersQuery, true);
         });
         <?php if(isset($_GET['msg'])):?>
         Swal.fire({
-            position: 'bottom-end',
+            position: 'bottom-center',
             icon: 'warning',
             title: "<?= $_GET['msg'];?>",
             showConfirmButton: false,
             timer: 1500
         });
         <?php endif;?>
+        $('.select2').select2()
+
+        //Initialize Select2 Elements
+        $('.select2bs4').select2({
+            theme: 'bootstrap4'
+        })
     });
+    $("#example1").DataTable(
+        {"searching": false,}
+    );
 </script>
 </body>
 </html>

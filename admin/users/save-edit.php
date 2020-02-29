@@ -6,10 +6,7 @@ checkAdminLoggedIn();
 $id = trim($_POST['id']);
 $name = trim($_POST['name']);
 $email = trim($_POST['email']);
-$password = trim($_POST['password']);
-$cfpassword = trim($_POST['cfpassword']);
 $phone_number = trim($_POST['phone_number']);
-$house_no = trim($_POST['house_no']);
 $role_id = trim($_POST['role_id']);
 $avatar = $_FILES['avatar'];
 
@@ -22,7 +19,7 @@ if(!$user){
 }
 
 // kiểm tra xem có quyền để thực hiện edit hay không
-if($user['id'] != $_SESSION[AUTH]['id'] && $user['role_id'] >= $_SESSION[AUTH]['role_id'] ){
+if($user['id'] != $_SESSION[AUTH]['id'] && $user['role_id'] <= $_SESSION[AUTH]['role_id'] ){
     header("location: " . ADMIN_URL . 'users?msg=Bạn không có quyền sửa thông tin tài khoản này');die;
 }
 
@@ -65,10 +62,9 @@ $updateUserQuery = "update users
                     set
                           name = '$name', 
                           email = '$email', 
-                          role_id = $role_id, 
-                          house_no = '$house_no', 
+                          role_id = '$role_id',
                           phone_number = '$phone_number', 
-                          avatar = '$filename'
+                          image = '$filename'
                     where id = $id";
 queryExecute($updateUserQuery, false);
 header("location: " . ADMIN_URL . "users");

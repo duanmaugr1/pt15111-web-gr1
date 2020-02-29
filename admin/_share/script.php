@@ -36,3 +36,7 @@
 <script src="<?= ADMIN_ASSET_URL ?>dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?= ADMIN_ASSET_URL ?>dist/js/demo.js"></script>
+<script src="<?= ADMIN_ASSET_URL ?>plugins/select2/js/select2.full.min.js"></script>
+<!-- DataTables -->
+<script src="<?= ADMIN_ASSET_URL ?>plugins/datatables/jquery.dataTables.js"></script>
+<script src="<?= ADMIN_ASSET_URL ?>plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>

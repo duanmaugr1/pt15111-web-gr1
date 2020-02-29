@@ -7,7 +7,6 @@ $email = trim($_POST['email']);
 $password = trim($_POST['password']);
 $cfpassword = trim($_POST['cfpassword']);
 $phone_number = trim($_POST['phone_number']);
-$house_no = trim($_POST['house_no']);
 $role_id = trim($_POST['role_id']);
 $avatar = $_FILES['avatar'];
 // validate bằng php
@@ -55,9 +54,9 @@ if($avatar['size'] > 0){
     $filename = "public/images/" . $filename;
 }
 $insertUserQuery = "insert into users 
-                          (name, email, password, role_id, house_no, phone_number, avatar)
+                          (name, password, email, phone_number, role_id, active, image)
                     values 
-                          ('$name', '$email', '$password', $role_id, '$house_no', '$phone_number', '$filename')";
+                          ('$name', '$password', '$email', '$phone_number', '$role_id',  '1','$filename')";
 queryExecute($insertUserQuery, false);
 header("location: " . ADMIN_URL . "users");
 die;
