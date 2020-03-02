@@ -34,12 +34,12 @@ require_once "./config/utils.php";
 <div class="limiter">
     <div class="container-login100" style="background-image: url('<?= LOGINTHEME_ASSET_URL ?>images/avatar-01.png');">
         <div class="wrap-login100 p-t-100 p-b-30">
+            <div class="d-flex justify-content-center">
+                <?php if(isset($_GET['msg'])):?>
+                    <span class="text-danger"><?php echo $_GET['msg']?></span>
+                <?php endif;?>
+            </div>
             <form class="login100-form validate-form" action="post-login.php" method="post">
-                <div class="d-flex justify-content-center">
-                    <?php if(isset($_GET['msg'])):?>
-                        <span class="text-danger"><?php echo $_GET['msg']?></span>
-                    <?php endif;?>
-                </div>
                 <div class="login100-form-avatar">
                     <img src="<?= LOGINTHEME_ASSET_URL ?>images/avatar-01.jpg" alt="AVATAR">
                 </div>
@@ -65,14 +65,20 @@ require_once "./config/utils.php";
 
                 <div class="container-login100-form-btn p-t-10">
                     <button class="login100-form-btn" type="submit">
-                        Login
+                        Đăng nhập
                     </button>
                 </div>
 
                 <div class="text-center w-full" style="margin-top: 10px">
                     <a class="txt1" href="<?= BASE_URL . 'register.php' ?>">
-                        Create new account
+                        Tạo tài khoản mới
                         <i class="fa fa-long-arrow-right"></i>
+                    </a>
+                </div>
+                <div class="text-center w-full" style="margin-top: 10px">
+                    <a class="txt1" href="<?= BASE_URL . 'index.php' ?>">
+                        Quay lại
+                        <i class="fa fa-long-arrow-left"></i>
                     </a>
                 </div>
             </form>

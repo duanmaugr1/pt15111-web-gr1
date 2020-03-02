@@ -3,8 +3,12 @@
 session_start();
 require_once "./config/utils.php";
 // $loggedInUser = $_SESSION[AUTH];
-
+$typeQuery = 'select * from types';
+$types = queryExecute($typeQuery, true);
 // echo $loggedInUser['name'];
+
+$placeQuery = 'select * from places';
+$places = queryExecute($placeQuery, true);
  ?>
 
 <!DOCTYPE html>
@@ -16,31 +20,17 @@ require_once "./config/utils.php";
 
 <!-- Mirrored from frenify.com/envato/frenify/html/directify/1/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 26 Feb 2020 03:34:00 GMT -->
 <head>
-
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
 <meta name="description" content="Directify">
 <meta name="author" content="Frenify">
-
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-<title>Directify | Homepage</title>
+<title>Directify</title>
 
 <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Work+Sans:300,400,500,600,700,800,900" rel="stylesheet">
+<!--    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap" rel="stylesheet">-->
 
-<!-- STYLES -->
-<link rel="stylesheet" type="text/css" href="<?= THEME_ASSET_URL ?>css/skeleton.css" />
-<link rel="stylesheet" type="text/css" href="<?= THEME_ASSET_URL ?>css/base.css" />
-<link rel="stylesheet" type="text/css" href="<?= THEME_ASSET_URL ?>css/fontello.css" />
-<link rel="stylesheet" type="text/css" href="<?= THEME_ASSET_URL ?>css/carousel.css" />
-<link rel="stylesheet" type="text/css" href="<?= THEME_ASSET_URL ?>css/select.css" />
-<link rel="stylesheet" type="text/css" href="<?= THEME_ASSET_URL ?>css/colors.css" />
-<link rel="stylesheet" type="text/css" href="<?= THEME_ASSET_URL ?>css/magnific-popup.css" />
-<link rel="stylesheet" type="text/css" href="<?= THEME_ASSET_URL ?>css/leaflet.css" />
-<link rel="stylesheet" type="text/css" href="<?= THEME_ASSET_URL ?>css/hamburgers.css" />
-<link rel="stylesheet" type="text/css" href="<?= THEME_ASSET_URL ?>css/range.css" />
-<link rel="stylesheet" type="text/css" href="<?= THEME_ASSET_URL ?>css/style.css" />
-<!--[if lt IE 9]> <script type="text/javascript" src="<?= THEME_ASSET_URL ?>js/modernizr.custom.js"></script> <![endif]-->
+<?php include_once '_share/style.php'?>
 
 </head>
 
@@ -48,307 +38,12 @@ require_once "./config/utils.php";
 
 <!-- WRAPPER ALL -->
 <div class="directify_fn_wrapper_all">
-
-	<!-- SIGN IN POPUP -->
-	<div class="directify_fn_sign_in">
-		<div class="directify_fn_sign_in_content">
-			<div class="aaa">
-				<div class="sign_in_box effect-1">
-					<div class="sign_in_box_content">
-						<div class="closer">
-							<a href="#"><i class="xcon-cancel"></i></a>
-						</div>
-						<h3>Sign In</h3>
-						<input type="text" placeholder="Your Login" />
-						<input type="password" placeholder="Your Password" />
-						<input type="submit" value="Continue" />
-						<h5>Or</h5>
-						<a href="#" class="facebook">Continue with Facebook</a>
-						<a href="#" class="google">Sign In by Google</a>
-						<p>Nullam commodo arcu lorem, id posuere lorem viverra vel. Aenean mollis ante.</p>
-					</div>
-				</div>
-				<div class="directify_fn_sign_in_closer"></div>
-			</div>
-		</div>
-	</div>
-	<!-- /SIGN IN POPUP -->
-   
     <!-- MOBILE MENU -->
-   	<div class="directify_fn_mobile_menu_wrap absolute" data-bg-type="translight">
-   	
-   		<div class="directify_fn_mobile_menu">
-   			<div class="mobile_logo">
-				<a class="dark" href="index-2.html"><img src="<?= THEME_ASSET_URL ?>img/logo-dark.png" alt="" /></a>
-				<a class="light" href="index-2.html"><img src="<?= THEME_ASSET_URL ?>img/logo-light.png" alt="" /></a>
-			</div>
-  			<div class="mobile_search">
-  				<a href="#">
-					<img class="svg" src="<?= THEME_ASSET_URL ?>img/svg/search.svg" alt="" />
-					Search
-				</a>
-  			</div>
-			<div class="hamburger hamburger--collapse-r">
-				<div class="hamburger-box">
-					<div class="hamburger-inner"></div>
-				</div>
-			</div>
-  			<div class="s-search">
-  				<a href="#">
-  					<img class="svg" src="<?= THEME_ASSET_URL ?>img/svg/search.svg" alt="" />
-  				</a>
-  			</div>
-   		</div>
-   		<div class="directify_fn_mobile_nav">
-   			<ul class="nav">
-				<li>
-					<a href="#">Explore<i class="xcon-angle-down"></i></a>
-					<ul class="sub_menu">
-						<li><a href="listing.html">Restaurants</a></li>
-						<li><a href="listing.html">Hotels</a></li>
-						<li><a href="listing.html">Shopping</a></li>
-						<li><a href="listing.html">Galleries</a></li>
-						<li><a href="listing.html">Parks</a></li>
-						<li><a href="listing.html">Movies</a></li>
-						<li><a href="listing.html">Services</a></li>
-						<li><a href="listing.html">Theatres</a></li>
-						<li><a href="listing.html">Hospitals</a></li>
-						<li><a href="listing_single1.html">Single Page #1</a></li>
-						<li><a href="listing_single2.html">Single Page #2</a></li>
-					</ul>
-				</li>
-				<li>
-					<a href="#">Pages<i class="xcon-angle-down"></i></a>
-					<ul class="sub_menu">
-						<li><a href="index-2.html">Homepage #1</a></li>
-						<li><a href="index21.html">Homepage #2</a></li>
-						<li><a href="index23.html">Homepage #3</a></li>
-						<li><a href="index25.html">Homepage #4</a></li>
-						<li><a href="index10.html">Homepage #5</a></li><li><a href="contact.html">Contact</a></li>
-						<li>
-							<a href="#">Submenu Level #1<i class="xcon-angle-down"></i></a>
-							<ul class="sub_menu">
-								<li><a href="#">Level #2</a></li>
-								<li><a href="#">Level #2</a></li>
-								<li>
-									<a href="#">Level #2<i class="xcon-angle-down"></i></a>
-									<ul class="sub_menu">
-										<li><a href="#">Level #3</a></li>
-										<li><a href="#">Level #3</a></li>
-										<li><a href="#">Level #3</a></li>
-										<li>
-											<a href="#">Level #3<i class="xcon-angle-down"></i></a>
-											<ul class="sub_menu">
-												<li><a href="#">Level #4</a></li>
-												<li><a href="#">Level #4</a></li>
-												<li><a href="#">Level #4</a></li>
-											</ul>
-										</li>
-									</ul>
-								</li>
-								<li><a href="#">Level #2</a></li>
-							</ul>
-						</li>
-					</ul>
-				</li>
-				<li>
-					<a href="#">Dashboard<i class="xcon-angle-down"></i></a>
-					<ul class="sub_menu">
-						<li><a href="dashboard-home.html">Dashboard - Home</a></li>
-						<li>
-							<a href="#">Dashboard - Listings<i class="xcon-angle-down"></i></a>
-							<ul class="sub_menu">
-								<li><a href="dashboard-listings.html">Active</a></li>
-								<li><a href="dashboard-listings.html">Panding</a></li>
-								<li><a href="dashboard-listings.html">Expired</a></li>
-							</ul>
-						</li>
-						<li><a href="dashboard-reviews.html">Dashboard - Reviews</a></li>
-						<li><a href="dashboard-bookmarks.html">Dashboard - Bookmarks</a></li>
-						<li><a href="dashboard-adding.html">Dashboard - Adding</a></li>
-						<li><a href="dashboard-invoices.html">Dashboard - Invoices</a></li>
-						<li><a href="dashboard-profile.html">Dashboard - Profile</a></li>
-					</ul>
-				</li>
-				<li>
-					<a href="#">Blog<i class="xcon-angle-down"></i></a>
-					<ul class="sub_menu">
-						<li><a href="blog.html">Blog</a></li>
-						<li><a href="blog_single.html">Single Page</a></li>
-					</ul>
-				</li>
-				<li class="log-in">
-					<a href="#">Log In</a>
-				</li>
-				<li class="add_listing">
-					<a href="submit.html"><span>Add Listings</span></a>
-				</li>
-			</ul>
-   		</div>
-   		
-   		<div class="mobile_search_see one">
-			<div class="selects">
-				<div>
-					<input class="directify_fn_search_input" type="search" placeholder="What Are You Looking For?" />
-				</div>
-				<div>
-					<select class="directify_fn_select">
-						<option value="all">All Listings</option>
-						<option value="restaurant">Restaurants</option>
-						<option value="hotel">Hotels</option>
-						<option value="shopping">Shopping</option>
-						<option value="gallery">Gallery</option>
-						<option value="park">Park</option>
-						<option value="movie">Movie</option>
-						<option value="service">Services</option>
-						<option value="theatre">Theatres</option>
-						<option value="hospital">Hospitals</option>
-					</select>	
-				</div>
-				<div>
-					<input type="text" id="select-location" placeholder="Location" />
-					<img class="svg" src="<?= THEME_ASSET_URL ?>img/svg/gps-fixed-indicator.svg" alt="" />
-				</div>
-			</div>
-			<a href="#"><img class="svg" src="<?= THEME_ASSET_URL ?>img/svg/search.svg" alt="" /><span>Search</span></a>
-		</div>
-   		
-   	</div>
+    <?php include_once  '_share/mobilemenu.php'?>
 	<!-- /MOBILE MENU -->
    
     <!-- HEADER -->
-    <header class="directify_fn_header_wrap absolute" data-bg-type="translight">
-    	<div>
-			<div class="directify_fn_header">
-				<div class="header">
-					<div class="directify_fn_header_logo">
-						<a class="dark" href="index-2.html"><img src="<?= THEME_ASSET_URL ?>img/logo-dark.png" alt="" /></a>
-						<a class="light" href="index-2.html"><img src="<?= THEME_ASSET_URL ?>img/logo-light.png" alt="" /></a>
-					</div>
-					<div class="directify_fn_header_search">
-						<a href="#">
-							<img class="svg" src="<?= THEME_ASSET_URL ?>img/svg/search.svg" alt="" />
-							Search
-						</a>
-						<div class="directify_fn_header_search_see_wrap one">
-							<div class="header_search_see">
-								<div class="selects">
-									<div>
-										<input class="directify_fn_search_input" type="search" placeholder="What Are You Looking For?" />
-									</div>
-									<div>
-										<select class="directify_fn_select">
-											<option value="all">All Listings</option>
-											<option value="restaurant">Restaurants</option>
-											<option value="hotel">Hotels</option>
-											<option value="shopping">Shopping</option>
-											<option value="gallery">Gallery</option>
-											<option value="park">Park</option>
-											<option value="movie">Movie</option>
-											<option value="service">Services</option>
-											<option value="theatre">Theatres</option>
-											<option value="hospital">Hospitals</option>
-										</select>	
-									</div>
-									<div>
-										<input type="text" id="select-location-1" placeholder="Location" />
-										<img class="svg" src="<?= THEME_ASSET_URL ?>img/svg/gps-fixed-indicator.svg" alt="" />
-									</div>
-								</div>
-								<a href="#"><img class="svg" src="<?= THEME_ASSET_URL ?>img/svg/search.svg" alt="" /><span>Search</span></a>
-							</div>
-						</div>
-					</div>
-					<div class="directify_fn_header_nav_list">
-						<ul class="nav__hor">
-							<li>
-								<a href="#">Explore<i class="xcon-angle-down"></i></a>
-								<ul class="sub_menu">
-									<li><a href="listing.html">Restaurants</a></li>
-									<li><a href="listing.html">Hotels</a></li>
-									<li><a href="listing.html">Shopping</a></li>
-									<li><a href="listing.html">Galleries</a></li>
-									<li><a href="listing.html">Parks</a></li>
-									<li><a href="listing.html">Movies</a></li>
-									<li><a href="listing.html">Services</a></li>
-									<li><a href="listing.html">Theatres</a></li>
-									<li><a href="listing.html">Hospitals</a></li>
-									<li><a href="listing_single1.html">Single Page #1</a></li>
-									<li><a href="listing_single2.html">Single Page #2</a></li>
-								</ul>
-							</li>
-							<li>
-								<a href="#">Pages<i class="xcon-angle-down"></i></a>
-								<ul class="sub_menu">
-									<li><a href="index-2.html">Homepage #1</a></li>
-									<li><a href="index21.html">Homepage #2</a></li>
-									<li><a href="index23.html">Homepage #3</a></li>
-									<li><a href="index25.html">Homepage #4</a></li>
-									<li><a href="index10.html">Homepage #5</a></li><li><a href="contact.html">Contact</a></li>
-									<li>
-										<a href="#">Submenu Level #1<i class="xcon-angle-right"></i></a>
-										<ul class="sub_menu">
-											<li><a href="#">Level #2</a></li>
-											<li><a href="#">Level #2</a></li>
-											<li>
-												<a href="#">Level #2<i class="xcon-angle-right"></i></a>
-												<ul class="sub_menu">
-													<li><a href="#">Level #3</a></li>
-													<li><a href="#">Level #3</a></li>
-													<li><a href="#">Level #3</a></li>
-													<li>
-														<a href="#">Level #3<i class="xcon-angle-right"></i></a>
-														<ul class="sub_menu">
-															<li><a href="#">Level #4</a></li>
-															<li><a href="#">Level #4</a></li>
-															<li><a href="#">Level #4</a></li>
-														</ul>
-													</li>
-												</ul>
-											</li>
-											<li><a href="#">Level #2</a></li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-							<li>
-								<a href="#">Dashboard<i class="xcon-angle-down"></i></a>
-								<ul class="sub_menu">
-									<li><a href="dashboard-home.html">Dashboard - Home</a></li>
-									<li>
-										<a href="#">Dashboard - Listings<i class="xcon-angle-right"></i></a>
-										<ul class="sub_menu">
-											<li><a href="dashboard-listings.html">Active</a></li>
-											<li><a href="dashboard-listings.html">Panding</a></li>
-											<li><a href="dashboard-listings.html">Expired</a></li>
-										</ul>
-									</li>
-									<li><a href="dashboard-reviews.html">Dashboard - Reviews</a></li>
-									<li><a href="dashboard-bookmarks.html">Dashboard - Bookmarks</a></li>
-									<li><a href="dashboard-adding.html">Dashboard - Adding</a></li>
-									<li><a href="dashboard-invoices.html">Dashboard - Invoices</a></li>
-									<li><a href="dashboard-profile.html">Dashboard - Profile</a></li>
-								</ul>
-							</li>
-							<li>
-								<a href="#">Blog<i class="xcon-angle-down"></i></a>
-								<ul class="sub_menu">
-									<li><a href="blog.html">Blog</a></li>
-									<li><a href="blog_single.html">Single Page</a></li>
-								</ul>
-							</li>
-							<li class="log-in">
-								<a href="#">Log In</a>
-							</li>
-							<li class="add_listing">
-								<a href="submit.html"><img class="svg" src="<?= THEME_ASSET_URL ?>img/svg/pencil.svg" alt="" /><span>Add Listings</span></a>
-							</li>
-						</ul>
-					</div>	
-				</div>
-			</div>
-		</div>
-    </header>
+    <?php include_once  '_share/header.php'?>
     <!-- /HEADER -->
     
     <!-- CONTENT -->
@@ -366,12 +61,12 @@ require_once "./config/utils.php";
     						<div class="discovering_wrap">
     							<div class="discovering">
     								<div class="title_holder">
-    									<h3>Discover the Best Places</h3>
-										<span>Directify helps you find all top locations</span>
+    									<h3>KHÁM PHÁ CÁC MÓN ĂN NGON NHẤT</h3>
+										<span>Directify sẽ giúp bạn khám phá các món ăn bạn muốn</span>
     								</div>
     								<div class="searching">
-    									<input class="directify_fn_search_input" type="search" placeholder="What Are You Looking For?" />
-    									<a class="directify_fn_search_btn" href="#"><img class="svg" src="<?= THEME_ASSET_URL ?>img/svg/search.svg" alt="" /><span>Search</span></a>
+    									<input class="directify_fn_search_input" type="search" name="keyword" placeholder="Nhập tên món ăn bạn muốn tìm?" />
+    									<a class="directify_fn_search_btn" href="#"><img class="svg" src="<?= THEME_ASSET_URL ?>img/svg/search.svg" alt="" /><span>Tìm kiếm</span></a>
     								</div>
     								<div class="cat_single_wrap" data-hover-text="#fff" data-hover-bg="" data-hover-border="rgba(255,255,255,1)" data-skew="6" data-text-color="#fff" data-bg-color="" data-bg-opacity="" data-border-width="1" data-border-color="rgba(255,255,255,0.64)">
 										<div class="cat_single">
@@ -525,106 +220,6 @@ require_once "./config/utils.php";
 											</div>
 										</div>
 										<!-- /#1 item -->
-
-										<!-- #2 item -->
-										<div class="featured_box_wrap">
-											<div class="featured_box">
-												<div class="featured_box_img">
-													<img src="<?= THEME_ASSET_URL ?>img/featured_listing/list2-l.jpg" alt="" />
-												</div>
-												<div class="featured_box_price">
-													<span class="text">$15</span>
-													<span class="after"></span>
-												</div>
-												<div class="featured_box_info_wrap">
-													<div class="featured_box_info">
-														<div class="featured_box_like">
-															<a href="#">
-																<img class="svg" src="<?= THEME_ASSET_URL ?>img/svg/bookmark.svg" alt="" />
-															</a>
-															<div class="featured_box_tooltip">
-																<span>Bookmark</span>
-															</div>
-														</div>
-														<div class="featured_box_title">
-															<h3><a href="#">The Lombardy</a></h3>
-														</div>
-														<div class="directify_fn_rating" data-rating="4.9">
-															<div class="behind">
-																<img class="svg" src="<?= THEME_ASSET_URL ?>img/svg/review.svg" alt="" />
-															</div>
-															<div class="up">
-																<img class="svg" src="<?= THEME_ASSET_URL ?>img/svg/review.svg" alt="" />
-															</div>
-															<div class="featured_box_preview">
-																<a href="#"><span>Preview</span></a>
-															</div>
-														</div>
-														<div class="featured_box_address">
-															<img class="svg" src="<?= THEME_ASSET_URL ?>img/svg/placeholder.svg" alt="" />
-															<span>111 E 56th St New York, NY 10022</span>
-														</div>
-														<div class="featured_box_author_img">
-															<div class="author_img">
-																<img src="<?= THEME_ASSET_URL ?>img/featured_listing/author2.jpg" alt="" />
-																<img class="svg" src="<?= THEME_ASSET_URL ?>img/svg/checked.svg" alt="" />
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<!-- /#2 item -->
-
-										<!-- #3 item -->
-										<div class="featured_box_wrap">
-											<div class="featured_box">
-												<div class="featured_box_img">
-													<img src="<?= THEME_ASSET_URL ?>img/featured_listing/list3-l.jpg" alt="" />
-												</div>
-												<div class="featured_box_price">
-													<span class="text">$37</span>
-													<span class="after"></span>
-												</div>
-												<div class="featured_box_info_wrap">
-													<div class="featured_box_info">
-														<div class="featured_box_like">
-															<a href="#">
-																<img class="svg" src="<?= THEME_ASSET_URL ?>img/svg/bookmark.svg" alt="" />
-															</a>
-															<div class="featured_box_tooltip">
-																<span>Bookmark</span>
-															</div>
-														</div>
-														<div class="featured_box_title">
-															<h3><a href="#">Rock Star Crystals</a></h3>
-														</div>
-														<div class="directify_fn_rating" data-rating="5">
-															<div class="behind">
-																<img class="svg" src="<?= THEME_ASSET_URL ?>img/svg/review.svg" alt="" />
-															</div>
-															<div class="up">
-																<img class="svg" src="<?= THEME_ASSET_URL ?>img/svg/review.svg" alt="" />
-															</div>
-															<div class="featured_box_preview">
-																<a href="#"><span>Preview</span></a>
-															</div>
-														</div>
-														<div class="featured_box_address">
-															<img class="svg" src="<?= THEME_ASSET_URL ?>img/svg/placeholder.svg" alt="" />
-															<span>146 W 26th St New York, NY 10001</span>
-														</div>
-														<div class="featured_box_author_img">
-															<div class="author_img">
-																<img src="<?= THEME_ASSET_URL ?>img/featured_listing/author3.jpg" alt="" />
-																<img class="svg" src="<?= THEME_ASSET_URL ?>img/svg/checked.svg" alt="" />
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<!-- /#3 item -->
    									</div>
     							</div>
 							</div>
@@ -634,15 +229,15 @@ require_once "./config/utils.php";
     		</div>
     	</div>
     	
-    	<!-- FAMOUS CITIES HOVERTAB -->
+    	<!-- FAMOUS FOODS HOVERTAB -->
     	<div class="directify_fn_tab_famous_cities_wrap">
     		<div class="directify_fn_tab_famous_cities">
     			<div class="tab_famous_cities">
     				<div class="container">
 						<div class="directify_fn_tabs" data-skin="light" data-x-pos="left">
 							<div class="title_holder">
-								<h3>Most Popular Cities to Travel</h3>
-								<span class="title">These are Top Places that recommended by Directify</span>
+								<h3>CÁC MÓN ĂN NGON BẠN NÊN THỬ</h3>
+								<span class="title">Đây là các món ăn được đề cử bởi Directify</span>
 								<span class="line"></span>
 							</div>
 							<ul class="fam_city tabHeader">
@@ -655,8 +250,8 @@ require_once "./config/utils.php";
 											</div>
 											<div class="fam_city_content">
 												<div class="title_holder">
-													<h3>New York</h3>
-													<span>227 Listings</span>
+													<h3>Món khai vị</h3>
+<!--													<span>227 Listings</span>-->
 												</div>
 												<div class="arrow">
 													<i class="xcon-angle-right"></i>
@@ -677,8 +272,8 @@ require_once "./config/utils.php";
 											</div>
 											<div class="fam_city_content">
 												<div class="title_holder">
-													<h3>Paris</h3>
-													<span>154 Listings</span>
+													<h3>Món chính</h3>
+<!--													<span>154 Listings</span>-->
 												</div>
 												<div class="arrow">
 													<i class="xcon-angle-right"></i>
@@ -699,8 +294,8 @@ require_once "./config/utils.php";
 											</div>
 											<div class="fam_city_content">
 												<div class="title_holder">
-													<h3>Rome</h3>
-													<span>854 Listings</span>
+													<h3>Món ăn nhanh</h3>
+<!--													<span>854 Listings</span>-->
 												</div>
 												<div class="arrow">
 													<i class="xcon-angle-right"></i>
@@ -721,8 +316,8 @@ require_once "./config/utils.php";
 											</div>
 											<div class="fam_city_content">
 												<div class="title_holder">
-													<h3>London</h3>
-													<span>239 Listings</span>
+													<h3>Món tráng miệng</h3>
+<!--													<span>239 Listings</span>-->
 												</div>
 												<div class="arrow">
 													<i class="xcon-angle-right"></i>
@@ -743,8 +338,8 @@ require_once "./config/utils.php";
 											</div>
 											<div class="fam_city_content">
 												<div class="title_holder">
-													<h3>Moscow</h3>
-													<span>634 Listings</span>
+													<h3>Món nướng</h3>
+<!--													<span>634 Listings</span>-->
 												</div>
 												<div class="arrow">
 													<i class="xcon-angle-right"></i>
@@ -765,8 +360,8 @@ require_once "./config/utils.php";
 											</div>
 											<div class="fam_city_content">
 												<div class="title_holder">
-													<h3>Tokyo</h3>
-													<span>123 Listings</span>
+													<h3>Món lẩu</h3>
+													<span></span>
 												</div>
 												<div class="arrow">
 													<i class="xcon-angle-right"></i>
@@ -796,61 +391,7 @@ require_once "./config/utils.php";
     	</div>
     	<!-- /FAMOUS CITIES HOVERTAB -->
     	
-    	<!-- HOW IT WORK -->
-    	<div class="directify_fn_workstep_wrap">
-    		<div class="directify_fn_workstep">
-    			<div class="workstep_wrap">
-    				<div class="container">
-    					<div class="workstep">
-    						<div class="title_holder">
-								<h3>How It Works</h3>
-								<span class="title">Let the Directify direct you toward to top places</span>
-								<span class="line"></span>
-							</div>
-   							<div class="steps">
-   								<div class="step_single_wrap">
-   									<div class="step_single">
-   										<div class="number">
-   											<span class="text">01</span>
-   											<span class="after"></span>
-   										</div>
-   										<div class="title_holder">
-   											<h3>Choose What To Do</h3>
-   											<span>Looking for a cozy hotel to stay, a restaurant to eat, a museum to visit or a mall to do some shopping?</span>
-   										</div>
-   									</div>
-   								</div>
-   								<div class="step_single_wrap">
-   									<div class="step_single">
-   										<div class="number">
-   											<span class="text">02</span>
-   											<span class="after"></span>
-   										</div>
-   										<div class="title_holder">
-   											<h3>Find the Best Locations </h3>
-   											<span>Search and filter hundreds of listings, read reviews, explore photos and find the perfect spot.</span>
-   										</div>
-   									</div>
-   								</div>
-   								<div class="step_single_wrap">
-   									<div class="step_single">
-   										<div class="number">
-   											<span class="text">03</span>
-   											<span class="after"></span>
-   										</div>
-   										<div class="title_holder">
-   											<h3>Go and Have Fun</h3>
-   											<span>Go and have a good time or even make a booking directly from the listing page. Sed do eiusmod tempor </span>
-   										</div>
-   									</div>
-   								</div>
-   							</div>
-    					</div>
-    				</div>
-    			</div>
-    		</div>
-    	</div>
-    	<!-- /HOW IT WORK -->
+    
     	
     	
     	<!-- FROM OUR BLOG -->
@@ -861,22 +402,22 @@ require_once "./config/utils.php";
     					<div class="exmblogs">
     						<div class="title_holder">
 								<h3>From Our Blog</h3>
-								<span class="title">We post everyday about places that you want to know about.</span>
+								<span class="title">Chúng tôi cập nhật và thêm các bài review hằng ngày.</span>
 								<span class="line"></span>
 							</div>
     						<div class="exmblog_single_wrap">
     							<div class="exmblog_single">
     								<img class="svg" src="<?= THEME_ASSET_URL ?>img/svg/open-book.svg" alt="" />
     								<div class="title_holder">
-    									<h3><a href="#">Best Destinations for Travellers</a></h3>
-    									<span class="title">Cras aliquam sagittis urna in consectetur. Aenean felis lacus.</span>
+    									<h3><a href="#">Trang web tốt nhất cho reviewer</a></h3>
+    									<span class="title">Viết bài review cho món ăn bạn thích</span>
     									<span class="read_more"><a href="#">Read More</a><span class="date"> - April 01</span></span>
     								</div>
     							</div>
     							<div class="exmblog_single">
     								<img class="svg" src="<?= THEME_ASSET_URL ?>img/svg/open-book.svg" alt="" />
     								<div class="title_holder">
-    									<h3><a href="#">How to Promote Your Business</a></h3>
+    									<h3><a href="#">Tìm hiểu về các món ăn nổi tiếng</a></h3>
     									<span class="title">Cras aliquam sagittis urna in consectetur. Aenean felis lacus.</span>
     									<span class="read_more"><a href="#">Read More</a><span class="date"> - March 27</span></span>
     								</div>
@@ -901,53 +442,7 @@ require_once "./config/utils.php";
     <!-- /CONTENT -->
     
     <!-- FOOTER -->
-    <footer class="directify_fn_footer_wrap">
-		<div class="directify_fn_footer">
-			<div class="footer_wrap">
-				<div class="footer_location_wrap">
-					<div class="container">
-						<div class="footer_location">
-							<div class="footer_location_rows">
-								<div class="footer_location_row">
-									<div class="footer_logo">
-										<a href="index-2.html">
-											<img class="dark" src="<?= THEME_ASSET_URL ?>img/logo-dark.png" alt="" />
-										</a>
-									</div>
-								</div>
-								<div class="footer_location_row">
-									<span>San Francisco State University, 1600 Holloway Ave, San Francisco, CA 94132</span>
-								</div>
-								<div class="footer_location_row">
-									<span>Directify Theme - Built by Flab Team &amp; Powered by Photoshop</span>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="footer_nav_list_wrap">
-					<div class="container">
-						<div class="footer_nav_list">
-							<ul class="social_icons">
-								<li><a href="#"><i class="xcon-facebook"></i></a></li>
-								<li><a href="#"><i class="xcon-twitter"></i></a></li>
-								<li><a href="#"><i class="xcon-instagram"></i></a></li>
-								<li><a href="#"><i class="xcon-pinterest"></i></a></li>
-								<li><a href="#"><i class="xcon-gplus"></i></a></li>
-							</ul>
-							<ul class="menu_list">
-								<li>Directify 2017 — Designed by <a href="#">Flab Team</a></li>
-								<li><a href="#">Privacy Policy</a></li>
-								<li><a href="#">Terms</a></li>
-								<li><a href="#">Help</a></li>
-								<li><a href="#">Contact</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-    </footer>
+    <?php include_once '_share/footer.php'?>
     <!-- /FOOTER -->
     
     <a class="totop" href="#"><i class="xcon-angle-up"></i></a>

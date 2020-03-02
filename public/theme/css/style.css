@@ -87,6 +87,7 @@ div.directify_fn_share_closer{position:absolute;width:100%;height:100%;top:0px;c
 .directify_fn_header_wrap.absolute{position:absolute;}
 .directify_fn_header_wrap.relative{position:relative;}
 .directify_fn_header_wrap.fixed{position:fixed;}
+
 .directify_fn_header_wrap[data-bg-type="translight"] .directify_fn_header_logo a.dark{display:none;}
 .directify_fn_header_wrap[data-bg-type="translight"] .directify_fn_header_logo a.light{display:block;}
 .directify_fn_header_wrap[data-bg-type="translight"] .directify_fn_header_search a{color:#fff;}

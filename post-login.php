@@ -8,7 +8,12 @@ $sql = "select * from users where email = '$email'";
 $loggedInUser = queryExecute($sql, false);
 if(password_verify($password, $loggedInUser['password'])){
     $_SESSION[AUTH] = $loggedInUser;
-    header('location: index.php');
+    if ($loggedInUser['role_id'] <= 2){
+        header('location:'.ADMIN_URL.'dashboard/');
+    }
+    else {
+        header('location: index.php');
+    }
     die;
 }else{
     header('location: login.php?msg=Sai thông tin đăng nhập!');

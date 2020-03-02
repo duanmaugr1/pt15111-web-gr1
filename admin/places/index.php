@@ -18,94 +18,94 @@ $places = queryExecute($getplacesTypesQuery, true);
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <?php include_once '../_share/style.php'; ?>
 </head>
+
 <body class="hold-transition sidebar-mini layout-fixed">
-<div class="wrapper">
+    <div class="wrapper">
 
-    <!-- Navbar -->
-    <?php include_once '../_share/header.php'; ?>
-    <!-- /.navbar -->
+        <!-- Navbar -->
+        <?php include_once '../_share/header.php'; ?>
+        <!-- /.navbar -->
 
-    <!-- Main Sidebar Container -->
-    <?php include_once '../_share/sidebar.php'; ?>
+        <!-- Main Sidebar Container -->
+        <?php include_once '../_share/sidebar.php'; ?>
 
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Quản trị phương tiện</h1>
-                    </div><!-- /.col -->
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="<?= ADMIN_URL . 'dashboard' ?>">Dashboard</a></li>
-                        </ol>
-                    </div><!-- /.col -->
-                </div><!-- /.row -->
-            </div><!-- /.container-fluid -->
-        </div>
-        <!-- /.content-header -->
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row mb-2">
+                                <div class="col-sm-6">
+                                    <h1 class="m-0 text-dark">ĐỊA ĐIỂM</h1>
+                                </div><!-- /.col -->
 
-        <!-- Main content -->
-        <section class="content">
-            <div class="container-fluid">
-                <!-- Small boxes (Stat box) -->
-                <div class="row">
-                    <div class="col-md-10 col-offset-1">
-                        <!-- Filter  -->
+                            </div><!-- /.row -->
+                        </div>
                     </div>
-                    <!-- Danh sách users  -->
-                    <table class="table table-stripped">
-                        <thead>
-                        <th>ID</th>
-                        <th>Địa điểm</th>
-                       
-                        <th>
-                            <a href="<?php echo ADMIN_URL . 'places/add-form.php' ?>"
-                               class="btn btn-primary btn-sm"><i
-                                        class="fa fa-plus"></i> Thêm</a>
-                        </th>
-                        </thead>
-                        <tbody>
-                        <?php foreach ($places as $pla): ?>
-                            <tr>
-                                <td><?php echo $pla['id'] ?></td>
-                                <td><?php echo $pla['name'] ?></td>
-                                
-                                <td>
-                                    <a href="<?php echo ADMIN_URL . 'places/edit-form.php?id=' . $pla['id'] ?>"
-                                       class="btn btn-sm btn-info">
-                                        <i class="fa fa-pencil-alt"></i>
-                                    </a>
-                                    <a href="<?php echo ADMIN_URL . 'places/remove.php?id=' . $pla['id'] ?>"
-                                       class="btn-remove btn btn-sm btn-danger">
-                                        <i class="fa fa-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
-                <!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </div>
+            <!-- /.content-header -->
 
-            </div><!-- /.container-fluid -->
-        </section>
-        <!-- /.content -->
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <table id="example1" class="table table-bordered table-hover">
+                                    <thead>
+                                        <th>ID</th>
+                                        <th>Địa điểm</th>
+
+                                        <th>
+                                            <a href="<?php echo ADMIN_URL . 'places/add-form.php' ?>"
+                                                class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Thêm</a>
+                                        </th>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($places as $pla): ?>
+                                        <tr>
+                                            <td><?php echo $pla['id'] ?></td>
+                                            <td><?php echo $pla['name'] ?></td>
+
+                                            <td>
+                                                <a href="<?php echo ADMIN_URL . 'places/edit-form.php?id=' . $pla['id'] ?>"
+                                                    class="btn btn-sm btn-info">
+                                                    <i class="fa fa-pencil-alt"></i>
+                                                </a>
+                                                <a href="<?php echo ADMIN_URL . 'places/remove.php?id=' . $pla['id'] ?>"
+                                                    class="btn-remove btn btn-sm btn-danger">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+        <?php include_once '../_share/footer.php'; ?>
+        <!-- /.control-sidebar -->
     </div>
-    <!-- /.content-wrapper -->
-    <?php include_once '../_share/footer.php'; ?>
-    <!-- /.control-sidebar -->
-</div>
-<!-- ./wrapper -->
-<?php include_once '../_share/script.php'; ?>
-<script>
-    $(document).ready(function () {
-        $('.btn-remove').on('click', function () {
+    <!-- ./wrapper -->
+    <?php include_once '../_share/script.php'; ?>
+    <script>
+    $(document).ready(function() {
+        $('.btn-remove').on('click', function() {
             var redirectUrl = $(this).attr('href');
             Swal.fire({
                 title: 'Thông báo!',
@@ -122,16 +122,20 @@ $places = queryExecute($getplacesTypesQuery, true);
             });
             return false;
         });
-        <?php if(isset($_GET['msg'])):?>
-        Swal.fire({
-            position: 'bottom-center',
-            icon: 'warning',
-            title: "<?= $_GET['msg'];?>",
-            showConfirmButton: false,
-            timer: 1500
+        $("#example1").DataTable({
+            "searching": false,
         });
-        <?php endif;?>
+        <?php
+        if (isset($_GET['msg'])): ?>
+            Swal.fire({
+                position: 'bottom-center',
+                icon: 'warning',
+                title: "<?= $_GET['msg'];?>",
+                showConfirmButton: false,
+                timer: 1500
+            }); <?php endif; ?>
     });
-</script>
+    </script>
 </body>
+
 </html>

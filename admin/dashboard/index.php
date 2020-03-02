@@ -7,13 +7,25 @@ checkAdminLoggedIn();
 $getAllMemberSql = "select * from users";
 $users = queryExecute($getAllMemberSql, true);
 
-# Lấy ra tất cả các bản ghi trong bảng tickets
-$getAllTicketSql = "select * from tickets";
-$tickets = queryExecute($getAllTicketSql, true);
+# Lấy ra tất cả các bản ghi trong bảng places
+$getAllPlaceSql = "select * from places";
+$places = queryExecute($getAllPlaceSql, true);
 
-# Lấy ra tất cả các bản ghi trong bảng vehicles
-$getAllVehicleSql = "select * from vehicles";
-$vehicles = queryExecute($getAllVehicleSql, true);
+# Lấy ra tất cả các bản ghi trong bảng types
+$getAllTypeSql = "select * from types";
+$types = queryExecute($getAllTypeSql, true);
+
+# Lấy ra tất cả các bản ghi trong bảng comments
+$getAllCommentSql = "select * from comments";
+$comments = queryExecute($getAllCommentSql, true);
+
+# Lấy ra tất cả các bản ghi trong bảng ratings
+$getAllRatingSql = "select * from ratings";
+$ratings = queryExecute($getAllRatingSql, true);
+
+# Lấy ra tất cả các bản ghi trong bảng foods
+$getAllFoodSql = "select * from foods";
+$foods = queryExecute($getAllFoodSql, true);
 ?>
 <!DOCTYPE html>
 <html>
@@ -30,17 +42,16 @@ $vehicles = queryExecute($getAllVehicleSql, true);
         <!-- Content Header (Page header) -->
         <div class="content-header">
             <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Dashboard</h1>
-                    </div><!-- /.col -->
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Dashboard v1</li>
-                        </ol>
-                    </div><!-- /.col -->
-                </div><!-- /.row -->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                                <h1 class="m-0 text-dark">Dashboard</h1>
+                            </div><!-- /.col -->
+
+                        </div><!-- /.row -->
+                    </div>
+                </div>
             </div><!-- /.container-fluid -->
         </div>
         <!-- /.content-header -->
@@ -50,7 +61,7 @@ $vehicles = queryExecute($getAllVehicleSql, true);
             <div class="container-fluid">
                 <!-- Small boxes (Stat box) -->
                 <div class="row">
-                    <div class="col-lg-3 col-6">
+                    <div class="col-lg-4 col-6">
                         <!-- small box -->
                         <div class="small-box bg-info">
                             <div class="inner">
@@ -65,33 +76,86 @@ $vehicles = queryExecute($getAllVehicleSql, true);
                         </div>
                     </div>
                     <!-- ./col -->
-                    <div class="col-lg-3 col-6">
+                    <div class="col-lg-4 col-6">
                         <!-- small box -->
                         <div class="small-box bg-success">
                             <div class="inner">
-                                <h3><?php echo count($tickets) ?></h3>
+                                <h3><?php echo count($places) ?></h3>
 
-                                <p>Vé xe</p>
+                                <p>Địa điểm</p>
                             </div>
                             <div class="icon">
-                                <i class="fa fa-ticket-alt"></i>
+                                <i class="fa fa-place-of-worship"></i>
                             </div>
-                            <a href="<?php echo ADMIN_URL . 'tickets' ?>" class="small-box-footer">Chi tiết <i class="fas fa-arrow-circle-right"></i></a>
+                            <a href="<?php echo ADMIN_URL . 'places' ?>" class="small-box-footer">Chi tiết <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                     <!-- ./col -->
-                    <div class="col-lg-3 col-6">
+
+
+                    <!-- ./col -->
+                    <div class="col-lg-4 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-gradient-red">
+                            <div class="inner">
+                                <h3><?php echo count($foods) ?></h3>
+
+                                <p>Thực phẩm</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fa fa-utensils"></i>
+                            </div>
+                            <a href="<?php echo ADMIN_URL . 'foods'?>" class="small-box-footer">Chi tiết <i class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+
+                    <div class="col-lg-4 col-6">
                         <!-- small box -->
                         <div class="small-box bg-warning">
                             <div class="inner">
-                                <h3><?php echo count($vehicles) ?></h3>
+                                <h3><?php echo count($types) ?></h3>
 
-                                <p>Phương tiện</p>
+                                <p>Loại thực phẩm</p>
                             </div>
                             <div class="icon">
-                                <i class="fa fa-motorcycle"></i>
+                                <i class="fa fa-hamburger"></i>
                             </div>
-                            <a href="<?php echo ADMIN_URL . 'vehicles'?>" class="small-box-footer">Chi tiết <i class="fas fa-arrow-circle-right"></i></a>
+                            <a href="<?php echo ADMIN_URL . 'types'?>" class="small-box-footer">Chi tiết <i class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+
+                    <!-- ./col -->
+                    <div class="col-lg-4 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-gradient-primary">
+                            <div class="inner">
+                                <h3><?php echo count($comments) ?></h3>
+
+                                <p>Các bình luận</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fa fa-comment"></i>
+                            </div>
+                            <a href="<?php echo ADMIN_URL . 'comments'?>" class="small-box-footer">Chi tiết <i class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+
+                    <!-- ./col -->
+                    <div class="col-lg-4 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-gradient-fuchsia">
+                            <div class="inner">
+                                <h3><?php echo count($ratings) ?></h3>
+
+                                <p>Các đánh giá</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fa fa-star-half"></i>
+                            </div>
+                            <a href="<?php echo ADMIN_URL . 'ratings'?>" class="small-box-footer">Chi tiết <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                     <!-- ./col -->
