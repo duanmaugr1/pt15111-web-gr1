@@ -9,6 +9,9 @@ $types = queryExecute($typeQuery, true);
 
 $placeQuery = 'select * from places';
 $places = queryExecute($placeQuery, true);
+
+$foodQuery = "select * from foods";
+$foods = queryExecute($foodQuery, true);
  ?>
 
 <!DOCTYPE html>
@@ -28,7 +31,9 @@ $places = queryExecute($placeQuery, true);
 <title>Directify</title>
 
 <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Work+Sans:300,400,500,600,700,800,900" rel="stylesheet">
-<!--    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap" rel="stylesheet">-->
+<!-- <link rel="stylesheet" href="<?= PUBLIC_URL. 'css/main_font.css'?>">
+<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet"> -->
+
 
 <?php include_once '_share/style.php'?>
 
@@ -62,13 +67,13 @@ $places = queryExecute($placeQuery, true);
     							<div class="discovering">
     								<div class="title_holder">
     									<h3>KHÁM PHÁ CÁC MÓN ĂN NGON NHẤT</h3>
-										<span>Directify sẽ giúp bạn khám phá các món ăn bạn muốn</span>
+										<span>Direct-Food sẽ giúp bạn khám phá các món ăn bạn muốn</span>
     								</div>
     								<div class="searching">
     									<input class="directify_fn_search_input" type="search" name="keyword" placeholder="Nhập tên món ăn bạn muốn tìm?" />
     									<a class="directify_fn_search_btn" href="#"><img class="svg" src="<?= THEME_ASSET_URL ?>img/svg/search.svg" alt="" /><span>Tìm kiếm</span></a>
     								</div>
-    								<div class="cat_single_wrap" data-hover-text="#fff" data-hover-bg="" data-hover-border="rgba(255,255,255,1)" data-skew="6" data-text-color="#fff" data-bg-color="" data-bg-opacity="" data-border-width="1" data-border-color="rgba(255,255,255,0.64)">
+    								<div class="cat_single_wrap" data-hover-text="#fff" data-hover-bg="" data-hover-border="rgba(255,255,255,1)" data-skew="6" data-text-color="#fff" data-bg-color="" data-bg-opacity="" data-border-width="1" data-border-color="rgba(255,255,255,0.64)" >
 										<div class="cat_single">
 											<div class="cat_single_bg">
 												<div class="overlay_color"></div>
@@ -76,7 +81,7 @@ $places = queryExecute($placeQuery, true);
 											<div class="cat_single_content">
 												<a href="#">
 													<img class="svg" src="<?= THEME_ASSET_URL ?>img/svg/restaurant.svg" alt="" />
-													<span class="cat_title">Restaurants</span>
+													<span class="cat_title">Các Món Ăn</span>
 												</a>
 											</div>
 										</div>
@@ -87,7 +92,7 @@ $places = queryExecute($placeQuery, true);
 											<div class="cat_single_content">
 												<a href="#">
 													<img class="svg" src="<?= THEME_ASSET_URL ?>img/svg/hotel.svg" alt="" />
-													<span class="cat_title">Hotels</span>
+													<span class="cat_title">Địa Điểm</span>
 												</a>
 											</div>
 										</div>
@@ -98,7 +103,7 @@ $places = queryExecute($placeQuery, true);
 											<div class="cat_single_content">
 												<a href="#">
 													<img class="svg" src="<?= THEME_ASSET_URL ?>img/svg/shopping.svg" alt="" />
-													<span class="cat_title">Shopping</span>
+													<span class="cat_title">Các Loại Món</span>
 												</a>
 											</div>
 										</div>
@@ -109,29 +114,7 @@ $places = queryExecute($placeQuery, true);
 											<div class="cat_single_content">
 												<a href="#">
 													<img class="svg" src="<?= THEME_ASSET_URL ?>img/svg/gallery.svg" alt="" />
-													<span class="cat_title">Gallery</span>
-												</a>
-											</div>
-										</div>
-										<div class="cat_single">
-											<div class="cat_single_bg">
-												<div class="overlay_color"></div>
-											</div>
-											<div class="cat_single_content">
-												<a href="#">
-													<img class="svg" src="<?= THEME_ASSET_URL ?>img/svg/park.svg" alt="" />
-													<span class="cat_title">Park</span>
-												</a>
-											</div>
-										</div>
-										<div class="cat_single">
-											<div class="cat_single_bg">
-												<div class="overlay_color"></div>
-											</div>
-											<div class="cat_single_content">
-												<a href="#">
-													<img class="svg" src="<?= THEME_ASSET_URL ?>img/svg/movie.svg" alt="" />
-													<span class="cat_title">Movie</span>
+													<span class="cat_title">Thư Viện Ảnh</span>
 												</a>
 											</div>
 										</div>
@@ -142,29 +125,7 @@ $places = queryExecute($placeQuery, true);
 											<div class="cat_single_content">
 												<a href="#">
 													<img class="svg" src="<?= THEME_ASSET_URL ?>img/svg/service.svg" alt="" />
-													<span class="cat_title">Services</span>
-												</a>
-											</div>
-										</div>
-										<div class="cat_single">
-											<div class="cat_single_bg">
-												<div class="overlay_color"></div>
-											</div>
-											<div class="cat_single_content">
-												<a href="#">
-													<img class="svg" src="<?= THEME_ASSET_URL ?>img/svg/theatre.svg" alt="" />
-													<span class="cat_title">Theatres</span>
-												</a>
-											</div>
-										</div>
-										<div class="cat_single">
-											<div class="cat_single_bg">
-												<div class="overlay_color"></div>
-											</div>
-											<div class="cat_single_content">
-												<a href="#">
-													<img class="svg" src="<?= THEME_ASSET_URL ?>img/svg/hospital.svg" alt="" />
-													<span class="cat_title">Hospitals</span>
+													<span class="cat_title">Dịch Vụ</span>
 												</a>
 											</div>
 										</div>
@@ -172,13 +133,14 @@ $places = queryExecute($placeQuery, true);
 									<div class="clearfix"></div>
 									<!-- #1 item -->
 									<div class="fdbox">
+										<?php foreach ($foods as $food):?>
 										<div class="featured_box_wrap">
 											<div class="featured_box">
 												<div class="featured_box_img">
-													<img src="<?= THEME_ASSET_URL ?>img/featured_listing/list1-l.jpg" alt="" />
+													<img src="<?= BASE_URL.$food['image']?>" alt="" />
 												</div>
 												<div class="featured_box_price">
-													<span class="text">$44</span>
+													<span class="text"><?= $food['price']?>VNĐ</span>
 													<span class="after"></span>
 												</div>
 												<div class="featured_box_info_wrap">
@@ -192,7 +154,7 @@ $places = queryExecute($placeQuery, true);
 															</div>
 														</div>
 														<div class="featured_box_title">
-															<h3><a href="#">Casablanca Hotel</a></h3>
+															<h3><a href="#"><?= $food['name']?></a></h3>
 														</div>
 														<div class="directify_fn_rating" data-rating="4.2">
 															<div class="behind">
@@ -219,8 +181,9 @@ $places = queryExecute($placeQuery, true);
 												</div>
 											</div>
 										</div>
-										<!-- /#1 item -->
+										<?php endforeach;?>
    									</div>
+										<!-- /#1 item -->
     							</div>
 							</div>
     					</div>
@@ -237,7 +200,7 @@ $places = queryExecute($placeQuery, true);
 						<div class="directify_fn_tabs" data-skin="light" data-x-pos="left">
 							<div class="title_holder">
 								<h3>CÁC MÓN ĂN NGON BẠN NÊN THỬ</h3>
-								<span class="title">Đây là các món ăn được đề cử bởi Directify</span>
+								<span class="title">Các món ăn được đề cử</span>
 								<span class="line"></span>
 							</div>
 							<ul class="fam_city tabHeader">
@@ -258,7 +221,7 @@ $places = queryExecute($placeQuery, true);
 												</div>
 											</div>
 											<div class="hidden_img">
-												<img src="<?= THEME_ASSET_URL ?>img/popular_cities/city1-s.jpg" alt="" />
+												<img src="<?= THEME_ASSET_URL ?>img/" alt="" />
 											</div>
 										</div>
 									</a>
@@ -280,7 +243,7 @@ $places = queryExecute($placeQuery, true);
 												</div>
 											</div>
 											<div class="hidden_img">
-												<img src="<?= THEME_ASSET_URL ?>img/popular_cities/city2-s.jpg" alt="" />
+												<img src="<?= THEME_ASSET_URL ?>img/" alt="" />
 											</div>
 										</div>
 									</a>
@@ -302,7 +265,7 @@ $places = queryExecute($placeQuery, true);
 												</div>
 											</div>
 											<div class="hidden_img">
-												<img src="<?= THEME_ASSET_URL ?>img/popular_cities/city3-s.jpg" alt="" />
+												<img src="<?= THEME_ASSET_URL ?>img/" alt="" />
 											</div>
 										</div>
 									</a>
@@ -324,7 +287,7 @@ $places = queryExecute($placeQuery, true);
 												</div>
 											</div>
 											<div class="hidden_img">
-												<img src="<?= THEME_ASSET_URL ?>img/popular_cities/city4-s.jpg" alt="" />
+												<img src="<?= THEME_ASSET_URL ?>img/" alt="" />
 											</div>
 										</div>
 									</a>
@@ -346,7 +309,7 @@ $places = queryExecute($placeQuery, true);
 												</div>
 											</div>
 											<div class="hidden_img">
-												<img src="<?= THEME_ASSET_URL ?>img/popular_cities/city5-s.jpg" alt="" />
+												<img src="<?= THEME_ASSET_URL ?>img/" alt="" />
 											</div>
 										</div>
 									</a>
@@ -368,7 +331,7 @@ $places = queryExecute($placeQuery, true);
 												</div>
 											</div>
 											<div class="hidden_img">
-												<img src="<?= THEME_ASSET_URL ?>img/popular_cities/city6-s.jpg" alt="" />
+												<img src="<?= THEME_ASSET_URL ?>img/" alt="" />
 											</div>
 										</div>
 									</a>
@@ -401,7 +364,7 @@ $places = queryExecute($placeQuery, true);
     				<div class="container">
     					<div class="exmblogs">
     						<div class="title_holder">
-								<h3>From Our Blog</h3>
+								<h3>Blog Của Chúng Tôi</h3>
 								<span class="title">Chúng tôi cập nhật và thêm các bài review hằng ngày.</span>
 								<span class="line"></span>
 							</div>
@@ -425,7 +388,7 @@ $places = queryExecute($placeQuery, true);
     							<div class="exmblog_single">
     								<img class="svg" src="<?= THEME_ASSET_URL ?>img/svg/open-book.svg" alt="" />
     								<div class="title_holder">
-    									<h3><a href="#">Tips for High Quality Holiday</a></h3>
+    									<h3><a href="#">Lời khuyên về những món ăn</a></h3>
     									<span class="title">Cras aliquam sagittis urna in consectetur. Aenean felis lacus.</span>
     									<span class="read_more"><a href="#">Read More</a><span class="date"> - January 18</span></span>
     								</div>

@@ -16,7 +16,7 @@
                                 <span>PT15111-WEB - Group 1 - HÀ NỘI, VIỆT NAM </span>
                             </div>
                             <div class="footer_location_row">
-                                <span>Directify Theme - Built by Flab Team &amp; Powered by Photoshop</span>
+                                <span>Direct-Food Theme - Built by Flab Team &amp; Powered by Photoshop</span>
                             </div>
                         </div>
                     </div>
@@ -33,7 +33,7 @@
                             <li><a href="#"><i class="xcon-gplus"></i></a></li>
                         </ul>
                         <ul class="menu_list">
-                            <li>Directify 2017 — Designed by <a href="#">Flab Team</a></li>
+                            <li>Direct-Food 2020 — Designed by <a href="#">PT15111-WEB-Group 1</a></li>
                             <li><a href="#">Privacy Policy</a></li>
                             <li><a href="#">Terms</a></li>
                             <li><a href="#">Help</a></li>

@@ -6,23 +6,18 @@ checkAdminLoggedIn();
 $id = trim($_POST['id']);
 $name = trim($_POST['name']);
 $price = trim($_POST['price']);
-$time = trim($_POST['time']);
+$time_start = trim($_POST['time_start']);
+$time_end = trim($_POST['time_end']);
 $description = trim($_POST['description']);
-$address = trim($_POST['address']);
  
 $image = $_FILES['image'];
 
 // kiểm tra tài khoản có tồn tại hay không
-$getUserByIdQuery = "select * from foods where id = $id";
-$foods = queryExecute($getUserByIdQuery, false);
+$getFoodByIdQuery = "select * from foods where id = $id";
+$foods = queryExecute($getFoodByIdQuery, false);
 
 if(!$foods){
     header("location: " . ADMIN_URL . 'foods?msg=Tài khoản không tồn tại');die;
-}
-
-// kiểm tra xem có quyền để thực hiện edit hay không
-if($foods['id'] != $_SESSION[AUTH]['id'] && $foods['role_id'] >= $_SESSION[AUTH]['role_id'] ){
-    header("location: " . ADMIN_URL . 'foods?msg=Bạn không có quyền sửa thông tin tài khoản này');die;
 }
 
 // validate bằng php
@@ -34,13 +29,13 @@ if(strlen($name) < 2 || strlen($name) > 191){
 }
  
 // check name đã tồn tại hay chưa
-$checkEmailQuery = "select * from foods where name = '$name' and id != $id";
-$foods = queryExecute($checkEmailQuery, true);
+$checkFoodQuery = "select * from foods where name = '$name' and id != $id";
+$foods = queryExecute($checkFoodlQuery, true);
 if($nameerr == "" && count($foods) > 0){
     $nameerr = "name đã tồn tại, vui lòng sử dụng email khác";
 }
 
-if($nameerr . $emailerr != "" ){
+if($nameerr != "" ){
     header('location: ' . ADMIN_URL . "foods/edit-form.php?id=$id&nameerr=$nameerr&emailerr=$emailerr");
     die;
 }
@@ -53,16 +48,16 @@ if($image['size'] > 0){
     $filename = "public/images/" . $filename;
 }
 
-$updateUserQuery = "update foods 
+$updateFoodQuery = "update foods 
                     set
                           name = '$name', 
                           image = '$filename', 
                           price = $price, 
-                          time = '$time', 
-                          description = '$description', 
-                          address = '$address'
+                          time_start = '$time_start', 
+                          time_end = '$time_end', 
+                          description = '$description'
                     where id = $id";
-                    // dd($updateUserQuery);
-queryExecute($updateUserQuery, false);
+                    // dd($updateFoodQuery);
+queryExecute($updateFoodQuery, false);
 header("location: " . ADMIN_URL . "foods");
 die;

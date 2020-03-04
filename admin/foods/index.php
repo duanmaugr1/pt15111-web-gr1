@@ -2,35 +2,24 @@
 session_start();
 require_once '../../config/utils.php';
 checkAdminLoggedIn();
+$getTypeQuery = "select * from types";
+$types = queryExecute($getTypeQuery, true);
+
+$getPlaceQuery = "select * from places";
+$places = queryExecute($getPlaceQuery, true);
 
 $keyword = isset($_GET['keyword']) == true ? $_GET['keyword'] : "";
-// $roleId = isset($_GET['role']) == true ? $_GET['role'] : false;
-$getJoinFood = "select f*
-                from foods as f 
-                join type_food as tf
-                on f.id = tf.food_id 
-                join types as t 
-                on t.id =  tf.type_id ";
-                $ff = queryExecute($getJoinFood, true);
-                // dd($ff);
-// Lấy danh sách roles
-// $getRolesQuery = "select * from roles where status = 1";
-// $roles = queryExecute($getRolesQuery, true);
 
-// danh sách foods
-$getFoodsQuery = "select * from foods";
- 
-if($keyword !== ""){
-    $getFoodsQuery .= " where (name like '%$keyword%' 
-                            or description like '%$keyword%'  
-                            or price like '%$keyword%'  
-                            or time like '%$keyword%'  )
-                      ";
-}
-
-
-$foods = queryExecute($getFoodsQuery, true);
-
+$getFoodTypeQuery = "select 
+                        f.*,
+                        t.name type_name
+                        from foods f 
+                        left join food_type tf
+                        on f.id = tf.food_id 
+                        left join types t
+                        on t.id = tf.type_id
+                        ";
+$foods = queryExecute($getFoodTypeQuery, true);
 ?>
 <!DOCTYPE html>
 <html>
@@ -75,18 +64,24 @@ $foods = queryExecute($getFoodsQuery, true);
                         <!-- Filter  -->
                         <form action="" method="get">
                             <div class="form-row">
-                                <div class="form-group col-6">
-                                    <input type="text" value="<?php echo $keyword?>" class="form-control" name="keyword" placeholder="Nhập tên, email, căn hộ, số điện thoại,...">
+                                <div class="form-group col-5">
+                                    <input type="text" value="<?= $keyword?>" class="form-control" name="keyword" placeholder="Nhập tên loại thực phẩm.">
                                 </div>
-                                <div class="form-group col-4">
-                                    <!-- <select name="role" class="form-control" >
-                                        <option selected value="">Tất cả</option>
-                                        <?php foreach($roles as $ro): ?>
-                                            <option
-                                                <?php if($roleId === $ro['id'] ) {echo "selected";} ?>
-                                                value="<?php echo $ro['id'] ?>"><?php echo $ro['name'] ?></option>
+                                <div class="form-group col-2">
+                                    <select name="role" class="form-control" >
+                                        <option selected value="">Tất cả loại</option>
+                                        <?php foreach($types as $type): ?>
+                                            <option value="<?= $type['id'] ?>"><?= $type['name'] ?></option>
                                         <?php endforeach;?>
-                                    </select> -->
+                                    </select>
+                                </div>
+                                <div class="form-group col-3">
+                                    <select name="role" class="form-control" >
+                                        <option selected value="">Tất cả địa điểm</option>
+                                        <?php foreach($places as $place): ?>
+                                            <option value="<?= $place['id'] ?>"><?= $place['name'] ?></option>
+                                        <?php endforeach;?>
+                                    </select>
                                 </div>
                                 <div class="form-group col-2">
                                     <button type="submit" class="btn btn-success">Tìm kiếm</button>
@@ -94,60 +89,44 @@ $foods = queryExecute($getFoodsQuery, true);
                             </div>
                         </form>
                     </div>
-                    <!-- Danh sách foods  -->
-                                            <!-- id 
-name 
-image 
-price 
-time 
-description 
-address  -->
                     <table class="table table-stripped">
                         <thead>
                         <th>ID</th>
-                        <th>name</th>
-                        <th>image</th>
-                        <th>price</th>
-                        <th>time</th>
-                        <th>description</th>
-                        <th>address</th>
+                        <th>Tên</th>
+                        <th>Loại</th>
+                        <th>Địa điểm</th>
+                        <th>Ảnh</th>
+                        <th>Giá</th>
+                        <th>Thời gian mở</th>
+                        <th>Thời gian đóng</th>
+                        <th>Nội dung</th>          
                         <th>
-                            <?php foreach ($ff as $us): ?>
-                                <td><?php echo $us['name']?></td>
-                            <?php endforeach; ?>
-                        </th>               
-                        <th>
-                            <a href="<?php echo ADMIN_URL . 'foods/add-form.php'?>" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Thêm</a>
+                            <a href="<?= ADMIN_URL . 'foods/add-form.php'?>" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Thêm</a>
                         </th>
                         </thead>
                         <tbody>
-                        <?php foreach ($foods as $us): ?>
+                        <?php foreach ($foods as $food): ?>
                             <tr>
-                                <td><?php echo $us['id']?></td>
-                                <td><?php echo $us['name']?></td>
+                                <td><?= $food['id']?></td>
+                                <td><?= $food['name']?></td>
+                                <td><?= $food['type_name']?></td>
+                                <td><?= $food['place_name']?></td>
                                 <td>
                                     <div  style="width:30%">
-                                    <img class="img-fluid" src="<?= BASE_URL . $us['image']?>" alt="">
+                                    <img class="img-fluid" src="<?= BASE_URL . $food['image']?>" alt="">
                                     </div>
                                 </td>
-                                <td><?php echo $us['price']?></td>
+                                <td><?= $food['price']?></td>
+                                <td><?= $food['time_start']?></td>
+                                <td><?= $food['time_end']?></td>
+                                <td><?= $food['description']?></td>
                                 <td>
-                                    <?php echo $us['time']?>
-                                </td>
-                                <td><?php echo $us['description']?></td>
-                                <td><?php echo $us['address']?></td>
-                             
-                                <td>
-                                    <!-- <?php if($us['role_id'] < $_SESSION[AUTH]['role_id'] || $us['id'] === $_SESSION[AUTH]['id']): ?> -->
-                                        <a href="<?php echo ADMIN_URL . 'foods/edit-form.php?id=' . $us['id'] ?>" class="btn btn-sm btn-info">
-                                            <i class="fa fa-pencil-alt"></i>
-                                        </a>
-                                    <!-- <?php endif; ?> -->
-                                    <!-- <?php if($us['role_id'] < $_SESSION[AUTH]['role_id']): ?> -->
-                                        <a href="<?php echo ADMIN_URL . 'foods/remove.php?id=' . $us['id'] ?>" class="btn-remove btn btn-sm btn-danger">
-                                            <i class="fa fa-trash"></i>
-                                        </a>
-                                    <!-- <?php endif; ?> -->
+                                    <a href="<?= ADMIN_URL . 'foods/edit-form.php?id=' . $food['id'] ?>" class="btn btn-sm btn-info">
+                                        <i class="fa fa-pencil-alt"></i>
+                                    </a>
+                                    <a href="<?= ADMIN_URL . 'foods/remove.php?id=' . $food['id'] ?>" class="btn-remove btn btn-sm btn-danger">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
                                 </td>
                             </tr>
                         <?php endforeach;?>

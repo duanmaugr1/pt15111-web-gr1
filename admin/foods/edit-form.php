@@ -43,7 +43,7 @@ if(!$foods){
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Cập nhật thông tin tài khoản</h1>
+                        <h1 class="m-0 text-dark">Cập nhật thông tin thực phẩm</h1>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
@@ -59,7 +59,7 @@ if(!$foods){
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="">name<span class="text-danger">*</span></label>
+                                <label for="">Tên thực phẩm<span class="text-danger"></span></label>
                                 <input type="text" class="form-control" name="name" value="<?= $foods['name']?>">
                                 <?php if(isset($_GET['nameerr'])):?>
                                     <label class="error"><?= $_GET['nameerr']?></label>
@@ -72,34 +72,41 @@ if(!$foods){
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Ảnh đại diện</label>
+                                    <label for="">Ảnh</label>
                                     <input type="file" class="form-control" name="image" onchange="encodeImageFileAsURL(this)">
                                 </div>
 
                             </div>
+                            <!--Loại thực phẩm chưa fix lỗi chưa cho vào -->
                             <div class="form-group">
-                                <label for="">price<span class="text-danger">*</span></label>
+                                <label for="">Loại thực phẩm</label>
+                            </div>    
+                            <!--Địa điểm chưa fix lỗi chưa cho vào -->
+                            <div class="form-group">
+                                <label for="">Địa điểm</label>
+                            </div> 
+                            <div class="form-group">
+                                <label for="">Giá<span class="text-danger">*</span></label>
                                 <input type="number" class="form-control" name="price" value="<?= $foods['price']?>">
                                 <?php if(isset($_GET['emailerr'])):?>
                                     <label class="error"><?= $_GET['emailerr']?></label>
                                 <?php endif; ?>
                             </div>
-                                
                             <div class="form-group">
-                                <label for="">time</label>
-                                <input type="time" class="form-control" name="time" value="<?= $foods['time']?>">
+                                <label for="">Thời gian mở</label>
+                                <input type="time" class="form-control" name="time_start" value="<?= $foods['time_start']?>">
                             </div>
                             <div class="form-group">
-                                <label for="">description</label>
-                                <input type="text" class="form-control" name="description" value="<?= $foods['description']?>">
+                                <label for="">Thời gian đóng</label>
+                                <input type="time" class="form-control" name="time_end" value="<?= $foods['time_end']?>">
                             </div>
                             <div class="form-group">
-                                <label for="">address</label>
-                                <input type="text" class="form-control" name="address" value="<?= $foods['address']?>">
+                                <label for="">Nội dung mô tả</label>
+                                <textarea name="description" class="form-control" id="" cols="30" rows="10"><?= $foods['description']?></textarea>
                             </div>
                         </div>
                         <div class="col-12 d-flex justify-content-end">
-                            <button type="submit" class="btn btn-primary">Tạo</button>&nbsp;
+                            <button type="submit" class="btn btn-primary">Cập nhật</button>&nbsp;
                             <a href="<?= ADMIN_URL . 'foods'?>" class="btn btn-danger">Hủy</a>
                         </div>
                     </div>
@@ -141,11 +148,11 @@ if(!$foods){
                 maxlength: 191,
                 email: true,
                 remote: {
-                    url: "<?= ADMIN_URL . 'foods/verify-email-existed.php'?>",
+                    url: "<?= ADMIN_URL . 'foods/verify-food-existed.php'?>",
                     type: "post",
                     data: {
-                        email: function() {
-                            return $( "input[name='email']" ).val();
+                        food: function() {
+                            return $( "input[name='food']" ).val();
                         },
                         id: <?= $foods['id']; ?>
                     }

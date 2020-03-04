@@ -3,10 +3,13 @@ session_start();
 include_once "../../config/utils.php";
 checkAdminLoggedIn();
 $name = trim($_POST['name']);
+$type = trim($_POST['type']);
+$place = trim($_POST['place']);
+
+$time_start = trim($_POST['time_start']);
+$time_end = trim($_POST['time_end']);
 $price = trim($_POST['price']);
-$time = trim($_POST['time']);
 $description = trim($_POST['description']);
-$address = trim($_POST['address']);
  
 $image = $_FILES['image'];
 // validate bằng php
@@ -19,14 +22,14 @@ if(strlen($name) < 2 || strlen($name) > 191){
 
  
 // check email đã tồn tại hay chưa
-$checkEmailQuery = "select * from foods where name = '$name'";
-$foods = queryExecute($checkEmailQuery, true);
+$checkFoodQuery = "select * from foods where name = '$name'";
+$foods = queryExecute($checkFoodQuery, true);
 if($nameerr == "" && count($foods) > 0){
     $nameerr = "tên thức đã tồn tại, vui lòng sử dụng tên thức ăn khác khác";
 }
  
 if($nameerr != "" ){
-    header('location: ' . ADMIN_URL . "foods/add-form.php?nameerr=$nameerr&emailerr=$emailerr&passworderr=$passworderr");
+    header('location: ' . ADMIN_URL . "foods/add-form.php?nameerr=$nameerr");
     die;
 }
 // mã hóa mật khẩu
@@ -38,11 +41,22 @@ if($image['size'] > 0){
     move_uploaded_file($image['tmp_name'], "../../public/images/" . $filename);
     $filename = "public/images/" . $filename;
 }
-$insertUserQuery = "insert into foods 
-                          (name, image, price, time, description, address)
+$insertFoodQuery = "insert into foods 
+                          (name, image, type, place, price, time_start, time_end, description)
                     values 
-                          ('$name', '$filename', '$price','$time', '$description', '$address')";
-                        //   dd($insertUserQuery);
-queryExecute($insertUserQuery, false);
-header("location: " . ADMIN_URL . "foods");
+                          ('$name', '$filename', '$type','$place', '$price', '$time_start', '$time_end', '$description')";
+queryExecute($insertFoodQuery, true );
+$getTypeQuery = "select type from foods";
+$get = queryExecute($getTypeQuery,true);
+dd($get);
+
+$getFoodIdQuery = "select id from foods where name = '$name'";
+queryExecute($getFoodIdQuery);
+
+$insertFoodTypeQuery = "insert into food_type
+                           (type_id, food_id)
+                        values
+                            ('$type','$data'";
+$twoId = QueryExecute($insertFoodTypeQuery, true);
+header("location: " . ADMIN_URL . "foods/");
 die;

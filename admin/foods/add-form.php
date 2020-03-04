@@ -2,8 +2,15 @@
 session_start();
 require_once '../../config/utils.php';
 checkAdminLoggedIn();
-$getRoleQuery = "select * from roles where status = 1";
-$roles = queryExecute($getRoleQuery, true);
+
+$getTypeQuery = "select * from types";
+$types = queryExecute($getTypeQuery, true);
+
+$getPlaceQuery = "select * from places";
+$places = queryExecute($getPlaceQuery, true);
+
+$getIdQuery = "select * from foods";
+$foods = queryExecute($getIdQuery,true);
 
 ?>
 <!DOCTYPE html>
@@ -28,7 +35,7 @@ $roles = queryExecute($getRoleQuery, true);
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Tạo tài khoản</h1>
+                        <h1 class="m-0 text-dark">Thêm thực phẩm</h1>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
@@ -39,37 +46,45 @@ $roles = queryExecute($getRoleQuery, true);
         <section class="content">
             <div class="container-fluid">
                 <!-- Small boxes (Stat box) -->
-                <form id="add-user-form" action="<?= ADMIN_URL . 'foods/save-add.php'?>" method="post" enctype="multipart/form-data">
+                <form id="add-food-form" action="<?= ADMIN_URL . 'foods/save-add.php'?>" method="post" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-md-6">
-                        <!-- id 
-name 
-image 
-price 
-time 
-description 
-address  -->
                             <div class="form-group">
-                                <label for="">food<span class="text-danger">*</span></label>
+                                <label for="">Tên thực phẩm<span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" name="name">
                                 <?php if(isset($_GET['nameerr'])):?>
                                     <label class="error"><?= $_GET['nameerr']?></label>
                                 <?php endif; ?>
                             </div>
                             <div class="form-group">
-                                <label for="">avatar<span class="text-danger">*</span></label>
-                                <input type="file" class="form-control" name="image" onchange="encodeImageFileAsURL(this)">
-                            </div>
-
+                                
                             <div class="row">
                                 <div class="col-md-3 offset-md-3">
                                     <img src="<?= DEFAULT_IMAGE ?>" id="preview-img" class="img-fluid">
                                 </div>
                             </div>
-                            
+
+                                <label for="">Ảnh<span class="text-danger">*</span></label>
+                                <input type="file" class="form-control" name="image" onchange="encodeImageFileAsURL(this)">
+                            </div>
+
                             <div class="form-group">
-                                <label for="">price<span class="text-danger">*</span></label>
-                                <input type="number" class="form-control" name="price">
+                                <label for="">Loại thực phẩm</label><br>
+                                <?php foreach($types as $type):?>
+                                    <input type="checkbox" multiple id="type" name="type" value="<?= $type['id']?>>"><?= $type['name']?>
+                                <?php endforeach?>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">Địa điểm</label><br>
+                                    <?php foreach($places as $place):?>
+                                        <input type="checkbox" multiple id="place" name="place" value="<?= $place['id']?>>"><?= $place['name']?>
+                                    <?php endforeach?>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">Giá<span class="text-danger">*</span></label>
+                                <input type="number" min='0' class="form-control" name="price">
                                 <?php if(isset($_GET['priceerr'])):?>
                                     <label class="error"><?= $_GET['priceerr']?></label>
                                 <?php endif; ?>
@@ -79,16 +94,16 @@ address  -->
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="">time<span class="text-danger">*</span></label>
-                                <input type="time" class="form-control" name="time">
+                                <label for="">Thời gian mở<span class="text-danger">*</span></label>
+                                <input type="time" class="form-control" name="time_start">
                             </div>
                             <div class="form-group">
-                                <label for="">description</label>
-                                <input type="text" class="form-control" name="description">
+                                <label for="">Thời gian đóng<span class="text-danger">*</span></label>
+                                <input type="time" class="form-control" name="time_end">
                             </div>
                             <div class="form-group">
-                                <label for="">address</label>
-                                <input type="text" class="form-control" name="address">
+                                <label for="">Nội dung mô tả</label>
+                                <textarea name="description" class="form-control" id="" cols="30" rows="10"></textarea>
                             </div>
                         <div class="col-6 d-flex justify-content-end offset-md-3 ">
                             <button type="submit" class="btn btn-primary">Tạo</button>&nbsp;
@@ -122,73 +137,50 @@ address  -->
         }
         reader.readAsDataURL(file);
     }
-    $('#add-user-form').validate({
+    $('#add-food-form').validate({
         rules:{
             name: {
                 required: true,
-                maxlength: 191
-            },
-            email: {
-                required: true,
                 maxlength: 191,
-                email: true,
                 remote: {
-                    url: "<?= ADMIN_URL . 'users/verify-email-existed.php'?>",
+                    url: "<?= ADMIN_URL . 'foods/verify-food-existed.php'?>",
                     type: "post",
                     data: {
-                        email: function() {
-                            return $( "input[name='email']" ).val();
+                        name: function() {
+                            return $( "input[name='name']" ).val();
                         }
                     }
-                }
+                },
             },
-            password:{
+            price: {
                 required: true,
                 maxlength: 191
             },
-            cfpassword: {
+            time_start:{
                 required: true,
-                equalTo: "#main-password"
             },
-            phone_number: {
-                number: true
+            time_end:{
+                required: true,
             },
-            house_no:{
-                maxlength: 191
-            },
-            avatar: {
+            image: {
                 required: true,
                 extension: "png|jpg|jpeg|gif"
             }
         },
         messages: {
             name: {
-                required: "Hãy nhập tên người dùng",
-                maxlength: "Số lượng ký tự tối đa bằng 191 ký tự"
-            },
-            email: {
-                required: "Hãy nhập email",
+                required: "Hãy nhập tên thực phẩm",
                 maxlength: "Số lượng ký tự tối đa bằng 191 ký tự",
-                email: "Không đúng định dạng email",
-                remote: "Email đã tồn tại, vui lòng sử dụng email khác"
+                remote: "Tên thực phẩm đã tồn tại, vui lòng sử dụng email khác"
             },
-            password:{
-                required: "Hãy nhập mật khẩu",
+            price:{
+                required: "Hãy nhập giá",
                 maxlength: "Số lượng ký tự tối đa bằng 191 ký tự"
-            },
-            cfpassword: {
-                required: "Nhập lại mật khẩu",
-                equalTo: "Cần khớp với mật khẩu"
-            },
-            phone_number: {
-                min: "Bắt buộc là số có 10 chữ số",
-                max: "Bắt buộc là số có 10 chữ số",
-                number: "Nhập định dạng số"
             },
             house_no:{
                 maxlength: "Số lượng ký tự tối đa bằng 191 ký tự"
             },
-            avatar: {
+            image: {
                 required: "Hãy nhập ảnh đại diện",
                 extension: "Hãy nhập đúng định dạng ảnh (jpg | jpeg | png | gif)"
             }
