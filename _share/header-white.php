@@ -1,9 +1,9 @@
-<header class="directify_fn_header_wrap absolute " data-bg-type="translight">
+<header class="directify_fn_header_wrap" data-bg-type="light">
     <div>
         <div class="directify_fn_header">
             <div class="header">
                 <div class="directify_fn_header_logo">
-                    <a class="dark" href="<?= BASE_URL. 'index.php' ?>"><img src="<?= THEME_ASSET_URL ?>img/logo-dark.png" alt="" /></a>
+                    <a class="dark" href="<?= BASE_URL . 'index.php' ?>"><img src="<?= THEME_ASSET_URL ?>img/logo-dark.png" alt="" /></a>
                     <a class="light" href="<?= BASE_URL . 'index.php' ?>"><img src="<?= THEME_ASSET_URL ?>img/logo-light.png" alt="" /></a>
                 </div>
                 <div class="directify_fn_header_search">
@@ -15,7 +15,7 @@
                         <div class="header_search_see">
                             <div class="selects">
                                 <div>
-                                    <input class="directify_fn_search_input" type="search" name="keyword" placeholder="Bạn đang tìm kiếm món ăn gì?" />
+                                    <input class="directify_fn_search_input" type="search" placeholder="What Are You Looking For?" />
                                 </div>
                                 <div>
                                     <select class="directify_fn_select">
@@ -69,7 +69,7 @@
                                     <?php if($_SESSION[AUTH]['role_id']<=2): ?>
                                         <li><a href="<?= ADMIN_URL . 'dashboard/index.php'?>">Admin</a></li>
                                     <?php endif;?>
-                                    <li><a href="<?= BASE_URL . 'edit-profile.php'?>">Edit profile</a></li>
+                                    <li><a href="#">Edit profile</a></li>
                                     <li><a href="<?= BASE_URL . 'logout.php' ?>">Logout</a></li>
                                 </ul>
                             </li>

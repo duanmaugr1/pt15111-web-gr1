@@ -3,9 +3,8 @@ session_start();
 include_once "../../config/utils.php";
 checkAdminLoggedIn();
 $name = trim($_POST['name']);
-$type = trim($_POST['type']);
-$place = trim($_POST['place']);
-
+$type = $_POST['type'];
+$place = $_POST['place'];
 $time_start = trim($_POST['time_start']);
 $time_end = trim($_POST['time_end']);
 $price = trim($_POST['price']);
@@ -42,9 +41,9 @@ if($image['size'] > 0){
     $filename = "public/images/" . $filename;
 }
 $insertFoodQuery = "insert into foods 
-                          (name, image, type, place, price, time_start, time_end, description)
+                          (name, image, price, time_start, time_end, description)
                     values 
-                          ('$name', '$filename', '$type','$place', '$price', '$time_start', '$time_end', '$description')";
+                          ('$name', '$filename', '$price', '$time_start', '$time_end', '$description')";
 queryExecute($insertFoodQuery, true );
 $getTypeQuery = "select type from foods";
 $get = queryExecute($getTypeQuery,true);

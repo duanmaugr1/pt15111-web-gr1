@@ -154,13 +154,13 @@ $roles = queryExecute($getRoleQuery, true);
             $('#preview-img').attr('src', reader.result)
         }
         reader.readAsDataURL(file);
-    }
-    $('.select2').select2()
+    };
+    $('.select2').select2();
 
     //Initialize Select2 Elements
     $('.select2bs4').select2({
         theme: 'bootstrap4'
-    })
+    });
 
     $('#add-user-form').validate({
         rules: {

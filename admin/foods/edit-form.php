@@ -10,6 +10,12 @@ $id = isset($_GET['id']) ? $_GET['id'] : -1;
 // kiểm tra tài khoản có tồn tại hay không
 $getUserByIdQuery = "select * from foods where id = $id";
 $foods = queryExecute($getUserByIdQuery, false);
+
+$getTypeByIdQuery = "select * from types";
+$types = queryExecute($getUserByIdQuery, false);
+
+$getPlaceByIdQuery = "select * from places";
+$places = queryExecute($getPlaceByIdQuery, false);
 if(!$foods){
     header("location: " . ADMIN_URL . 'foods?msg=Tài khoản không tồn tại');die;
 }

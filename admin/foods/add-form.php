@@ -70,7 +70,7 @@ $foods = queryExecute($getIdQuery,true);
 
                             <div class="form-group">
                                 <label for="">Loại thực phẩm</label><br>
-                                    <select name="type" multiple="multiple" class="select2" data-placeholder="Chọn loại thực phẩm" id="" style="width: 100%;">
+                                    <select name="type[]" multiple="multiple" class="select2" data-placeholder="Chọn loại thực phẩm" id="" style="width: 100%;">
                                         <?php foreach($types as $type):?>
                                             <option value="<?= $type['id']?>"><?= $type['name']?></option>
                                         <?php endforeach?>
@@ -78,7 +78,7 @@ $foods = queryExecute($getIdQuery,true);
                             </div>            
                             <div class="form-group">
                                 <label for="">Địa điểm</label><br>
-                                <select name="place" multiple="multiple" class="select2" data-placeholder="Chọn địa điểm" id="" style="width: 100%;">
+                                <select name="place[]" multiple="multiple" class="select2" data-placeholder="Chọn địa điểm" id="" style="width: 100%;">
                                     <?php foreach($places as $place):?>
                                         <option value="<?= $place['id']?>"><?= $place['name']?></option>
                                     <?php endforeach?> 
