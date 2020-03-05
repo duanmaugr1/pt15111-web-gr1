@@ -416,7 +416,7 @@ $foods = queryExecute($getFoodTypePlaceQuery, true);
     <!-- /FOOTER -->
     
     <a class="totop" href="#"><i class="xcon-angle-up"></i></a>
-    <a class="listed" href="submit.html"><img class="svg" src="<?= THEME_ASSET_URL ?>img/svg/pencil.svg" alt="" /></a>
+    <a class="listed" href="submit.php"><img class="svg" src="<?= THEME_ASSET_URL ?>img/svg/pencil.svg" alt="" /></a>
    
 </div>
 <!-- /WRAPPER ALL -->

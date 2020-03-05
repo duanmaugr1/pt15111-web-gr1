@@ -75,7 +75,7 @@
                             </li>
                         <?php endif; ?>
                         <li class="add_listing">
-                            <a href="submit.html"><img class="svg" src="<?= THEME_ASSET_URL ?>img/svg/pencil.svg" alt="" /><span>Add Listings</span></a>
+                            <a href="submit.php"><img class="svg" src="<?= THEME_ASSET_URL ?>img/svg/pencil.svg" alt="" /><span>Add Listings</span></a>
                         </li>
                     </ul>
                 </div>
