@@ -48,15 +48,23 @@ $insertFoodQuery = "insert into foods
 queryExecute($insertFoodQuery, true );
 $getTypeQuery = "select type from foods";
 $get = queryExecute($getTypeQuery,true);
-dd($get);
-
+//lấy id của foods
+//thêm vào bảng food_type
+//thêm vào bảng food_place
 $getFoodIdQuery = "select id from foods where name = '$name'";
-queryExecute($getFoodIdQuery);
+$idFoodArray = queryExecute($getFoodIdQuery);
+$idFood = $idFoodArray[0];
 
 $insertFoodTypeQuery = "insert into food_type
                            (type_id, food_id)
                         values
-                            ('$type','$data'";
-$twoId = QueryExecute($insertFoodTypeQuery, true);
+                            ('$type','$idFood')";
+queryExecute($insertFoodTypeQuery, true);
+
+$insertFoodPlaceQuery = "insert into food_place
+                            (place_id, food_id)
+                        values
+                            ('$place','$idFood')";
+queryExecute($insertFoodPlaceQuery, true);
 header("location: " . ADMIN_URL . "foods/");
 die;

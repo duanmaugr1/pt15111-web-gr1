@@ -50,7 +50,7 @@ $foods = queryExecute($getIdQuery,true);
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="">Tên thực phẩm<span class="text-danger">*</span></label>
+                                <label for="">Tên thực phẩm<span class="text-danger"></span></label>
                                 <input type="text" class="form-control" name="name">
                                 <?php if(isset($_GET['nameerr'])):?>
                                     <label class="error"><?= $_GET['nameerr']?></label>
@@ -64,26 +64,29 @@ $foods = queryExecute($getIdQuery,true);
                                 </div>
                             </div>
 
-                                <label for="">Ảnh<span class="text-danger">*</span></label>
+                                <label for="">Ảnh<span class="text-danger"></span></label>
                                 <input type="file" class="form-control" name="image" onchange="encodeImageFileAsURL(this)">
                             </div>
 
                             <div class="form-group">
                                 <label for="">Loại thực phẩm</label><br>
-                                <?php foreach($types as $type):?>
-                                    <input type="checkbox" multiple id="type" name="type" value="<?= $type['id']?>>"><?= $type['name']?>
-                                <?php endforeach?>
-                            </div>
-
+                                    <select name="type" multiple="multiple" class="select2" data-placeholder="Chọn loại thực phẩm" id="" style="width: 100%;">
+                                        <?php foreach($types as $type):?>
+                                            <option value="<?= $type['id']?>"><?= $type['name']?></option>
+                                        <?php endforeach?>
+                                </select>
+                            </div>            
                             <div class="form-group">
                                 <label for="">Địa điểm</label><br>
+                                <select name="place" multiple="multiple" class="select2" data-placeholder="Chọn địa điểm" id="" style="width: 100%;">
                                     <?php foreach($places as $place):?>
-                                        <input type="checkbox" multiple id="place" name="place" value="<?= $place['id']?>>"><?= $place['name']?>
-                                    <?php endforeach?>
+                                        <option value="<?= $place['id']?>"><?= $place['name']?></option>
+                                    <?php endforeach?> 
+                                </select>
                             </div>
 
                             <div class="form-group">
-                                <label for="">Giá<span class="text-danger">*</span></label>
+                                <label for="">Giá<span class="text-danger"></span></label>
                                 <input type="number" min='0' class="form-control" name="price">
                                 <?php if(isset($_GET['priceerr'])):?>
                                     <label class="error"><?= $_GET['priceerr']?></label>
@@ -94,12 +97,18 @@ $foods = queryExecute($getIdQuery,true);
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="">Thời gian mở<span class="text-danger">*</span></label>
-                                <input type="time" class="form-control" name="time_start">
+                                <label for="">Thời gian mở<span class="text-danger"></span></label>
+                                <div class="input-group">
+                                <span class="input-group-text"><i class="far fa-clock"></i></span>
+                                    <input type="time" class="form-control" name="time_start">
+                                </div>
                             </div>
                             <div class="form-group">
-                                <label for="">Thời gian đóng<span class="text-danger">*</span></label>
-                                <input type="time" class="form-control" name="time_end">
+                                <label for="">Thời gian đóng<span class="text-danger"></span></label>
+                                <div class="input-group">
+                                <span class="input-group-text"><i class="far fa-clock"></i></span>
+                                    <input type="time" class="form-control" name="time_end">
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="">Nội dung mô tả</label>

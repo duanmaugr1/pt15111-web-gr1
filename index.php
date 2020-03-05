@@ -10,8 +10,21 @@ $types = queryExecute($typeQuery, true);
 $placeQuery = 'select * from places';
 $places = queryExecute($placeQuery, true);
 
-$foodQuery = "select * from foods";
-$foods = queryExecute($foodQuery, true);
+$getFoodTypePlaceQuery = "select 
+                        f.*,
+                        t.name type_name,
+                        p.name place_name
+                        from foods f 
+                        join food_type tf
+                        on f.id = tf.food_id 
+                        join types t
+                        on t.id = tf.type_id
+                        join food_place pf
+                        on f.id = pf.food_id
+                        join places p
+                        on p.id = pf.place_id
+                        ";
+$foods = queryExecute($getFoodTypePlaceQuery, true);
  ?>
 
 <!DOCTYPE html>
@@ -169,13 +182,7 @@ $foods = queryExecute($foodQuery, true);
 														</div>
 														<div class="featured_box_address">
 															<img class="svg" src="<?= THEME_ASSET_URL ?>img/svg/placeholder.svg" alt="" />
-															<span>147 W 43rd St New York, NY 10036</span>
-														</div>
-														<div class="featured_box_author_img">
-															<div class="author_img">
-																<img src="<?= THEME_ASSET_URL ?>img/featured_listing/author1.jpg" alt="" />
-																<img class="svg" src="<?= THEME_ASSET_URL ?>img/svg/checked.svg" alt="" />
-															</div>
+															<span><?= $food['place_name']?></span>
 														</div>
 													</div>
 												</div>
@@ -235,7 +242,7 @@ $foods = queryExecute($foodQuery, true);
 											</div>
 											<div class="fam_city_content">
 												<div class="title_holder">
-													<h3>Món chính</h3>
+													<h3>Món thịt</h3>
 <!--													<span>154 Listings</span>-->
 												</div>
 												<div class="arrow">

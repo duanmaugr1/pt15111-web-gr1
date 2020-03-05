@@ -30,3 +30,8 @@
 <link rel="stylesheet" href="<?= ADMIN_ASSET_URL ?>plugins/datatables-bs4/css/dataTables.bootstrap4.css">
 <!-- Theme style -->
 <link rel="stylesheet" href="<?= ADMIN_ASSET_URL ?>dist/css/adminlte.min.css">
+<!-- Bootstrap Color Picker -->
+<link rel="stylesheet" href="<?= ADMIN_ASSET_URL ?>plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+<!-- Bootstrap4 Duallistbox -->
+<link rel="stylesheet" href="../../plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
+

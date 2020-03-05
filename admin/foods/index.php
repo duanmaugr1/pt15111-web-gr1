@@ -10,16 +10,21 @@ $places = queryExecute($getPlaceQuery, true);
 
 $keyword = isset($_GET['keyword']) == true ? $_GET['keyword'] : "";
 
-$getFoodTypeQuery = "select 
+$getFoodTypePlaceQuery = "select 
                         f.*,
-                        t.name type_name
+                        t.name type_name,
+                        p.name place_name
                         from foods f 
-                        left join food_type tf
+                        join food_type tf
                         on f.id = tf.food_id 
-                        left join types t
+                        join types t
                         on t.id = tf.type_id
+                        join food_place pf
+                        on f.id = pf.food_id
+                        join places p
+                        on p.id = pf.place_id
                         ";
-$foods = queryExecute($getFoodTypeQuery, true);
+$foods = queryExecute($getFoodTypePlaceQuery, true);
 ?>
 <!DOCTYPE html>
 <html>
