@@ -92,7 +92,7 @@ $foods = queryExecute($getFoodTypePlaceQuery, true);
 												<div class="overlay_color"></div>
 											</div>
 											<div class="cat_single_content">
-												<a href="#">
+												<a href="index.php">
 													<img class="svg" src="<?= THEME_ASSET_URL ?>img/svg/restaurant.svg" alt="" />
 													<span class="cat_title">Các Món Ăn</span>
 												</a>
