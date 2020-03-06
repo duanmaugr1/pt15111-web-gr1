@@ -17,8 +17,9 @@ $types = queryExecute($getUserByIdQuery, false);
 $getPlaceByIdQuery = "select * from places";
 $places = queryExecute($getPlaceByIdQuery, false);
 if(!$foods){
-    header("location: " . ADMIN_URL . 'foods?msg=Tài khoản không tồn tại');die;
+    header("location: " . ADMIN_URL . 'foods?msg=Thực phẩm không tồn tại');die;
 }
+
 
 // kiểm tra xem có quyền để thực hiện edit hay không
 // if($foods['id'] != $_SESSION[AUTH]['id']){
@@ -86,11 +87,16 @@ if(!$foods){
                             <!--Loại thực phẩm chưa fix lỗi chưa cho vào -->
                             <div class="form-group">
                                 <label for="">Loại thực phẩm</label>
+                                <select name="type[]" multiple="multiple" class="select2" data-placeholder="Chọn loại thực phẩm" id="" style="width: 100%;">
+                                        <?php foreach($types as $type):?>
+                                            <option value="<?= $type['id']?>"><?= $type['name']?></option>
+                                        <?php endforeach?>
+                                    </select>
                             </div>    
                             <!--Địa điểm chưa fix lỗi chưa cho vào -->
                             <div class="form-group">
                                 <label for="">Địa điểm</label>
-                            </div> 
+                            </div>
                             <div class="form-group">
                                 <label for="">Giá<span class="text-danger">*</span></label>
                                 <input type="number" class="form-control" name="price" value="<?= $foods['price']?>">

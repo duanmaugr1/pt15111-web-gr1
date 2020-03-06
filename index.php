@@ -3,29 +3,29 @@
 session_start();
 require_once "./config/utils.php";
 // $loggedInUser = $_SESSION[AUTH];
-$typeQuery = 'select * from types';
-$types = queryExecute($typeQuery, true);
-// echo $loggedInUser['name'];
 
-$placeQuery = 'select * from places';
-$places = queryExecute($placeQuery, true);
+$getFoodQuery = "select * from foods";
+$foods = queryExecute($getFoodQuery, true);
+
+$getFoodIdQuery = "select id from foods";
+$foodId = queryExecute($getFoodIdQuery, true);
 
 $getFoodTypePlaceQuery = "select 
-                        f.*,
-                        t.name type_name,
-                        p.name place_name
-                        from foods f 
-                        join food_type tf
-                        on f.id = tf.food_id 
-                        join types t
-                        on t.id = tf.type_id
-                        join food_place pf
-                        on f.id = pf.food_id
-                        join places p
-                        on p.id = pf.place_id
-                        ";
+							f.*,
+							t.name type_name,
+							p.name place_name
+							from foods f 
+							join food_type tf
+							on f.id = tf.food_id 
+							join types t
+							on t.id = tf.type_id
+							join food_place pf
+							on f.id = pf.food_id
+							join places p
+							on p.id = pf.place_id";
 $foods = queryExecute($getFoodTypePlaceQuery, true);
- ?>
+
+?>
 
 <!DOCTYPE html>
 <!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
@@ -168,6 +168,10 @@ $foods = queryExecute($getFoodTypePlaceQuery, true);
 														</div>
 														<div class="featured_box_title">
 															<h3><a href="#"><?= $food['name']?></a></h3>
+																<i class="fas fa-hotdog nav-icon"></i>
+																	
+																		<?= $food['type_name']?>
+																	
 														</div>
 														<div class="directify_fn_rating" data-rating="4.2">
 															<div class="behind">
@@ -182,7 +186,11 @@ $foods = queryExecute($getFoodTypePlaceQuery, true);
 														</div>
 														<div class="featured_box_address">
 															<img class="svg" src="<?= THEME_ASSET_URL ?>img/svg/placeholder.svg" alt="" />
-															<span><?= $food['place_name']?></span>
+															<span>
+																
+																		<?= $food['place_name']?>
+																	
+																</span>
 														</div>
 													</div>
 												</div>

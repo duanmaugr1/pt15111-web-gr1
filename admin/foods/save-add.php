@@ -54,16 +54,21 @@ $getFoodIdQuery = "select id from foods where name = '$name'";
 $idFoodArray = queryExecute($getFoodIdQuery);
 $idFood = $idFoodArray[0];
 
-$insertFoodTypeQuery = "insert into food_type
+for ($i = 0; $i < count($type); $i++){
+    $insertFoodTypeQuery = "insert into food_type
                            (type_id, food_id)
                         values
-                            ('$type','$idFood')";
-queryExecute($insertFoodTypeQuery, true);
+                            ('$type[$i]','$idFood')";
 
-$insertFoodPlaceQuery = "insert into food_place
-                            (place_id, food_id)
+    queryExecute($insertFoodTypeQuery, false);
+};
+for ($i = 0; $i < count($place); $i++){
+    $insertFoodTypeQuery = "insert into food_place
+                           (place_id, food_id)
                         values
-                            ('$place','$idFood')";
-queryExecute($insertFoodPlaceQuery, true);
+                            ('$place[$i]','$idFood')";
+    queryExecute($insertFoodTypeQuery, false);
+};
+
 header("location: " . ADMIN_URL . "foods/");
 die;

@@ -74,7 +74,7 @@ $foods = queryExecute($getIdQuery,true);
                                         <?php foreach($types as $type):?>
                                             <option value="<?= $type['id']?>"><?= $type['name']?></option>
                                         <?php endforeach?>
-                                </select>
+                                    </select>
                             </div>            
                             <div class="form-group">
                                 <label for="">Địa điểm</label><br>
@@ -180,7 +180,7 @@ $foods = queryExecute($getIdQuery,true);
             name: {
                 required: "Hãy nhập tên thực phẩm",
                 maxlength: "Số lượng ký tự tối đa bằng 191 ký tự",
-                remote: "Tên thực phẩm đã tồn tại, vui lòng sử dụng email khác"
+                remote: "Tên thực phẩm đã tồn tại, vui lòng sử dụng thực phẩm khác"
             },
             price:{
                 required: "Hãy nhập giá",
