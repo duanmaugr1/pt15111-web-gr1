@@ -150,7 +150,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="<?= ADMIN_URL . 'foods'?>" class="nav-link">
+                            <a href="<?= ADMIN_URL . 'comments'?>" class="nav-link">
                                 <i class="fa fa-list-ol nav-icon"></i>
                                 <p>Danh sách</p>
                             </a>
