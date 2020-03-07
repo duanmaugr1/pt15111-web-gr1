@@ -8,22 +8,25 @@ $types = queryExecute($getTypeQuery, true);
 $getPlaceQuery = "select * from places";
 $places = queryExecute($getPlaceQuery, true);
 
-$keyword = isset($_GET['keyword']) == true ? $_GET['keyword'] : "";
+$keyword = isset($_GET['keyword']) == true? $_GET['keyword'] : "";
+$typeId = isset($_GET['typeSearch']) == true ? $_GET['typeSearch'] : "";
+$placeId = isset($_GET['placeSearch']) == true ? $_GET['placeSearch'] : "";
 
-$getFoodTypePlaceQuery = "select 
-                            f.*,
-                            t.name type_name,
-                            p.name place_name
-                            from foods f 
-                            join food_type tf
-                            on f.id = tf.food_id 
-                            join types t
-                            on t.id = tf.type_id
-                            join food_place pf
-                            on f.id = pf.food_id
-                            join places p
-                            on p.id = pf.place_id";
-$foods = queryExecute($getFoodTypePlaceQuery, true);
+$typeQuery = 'select * from types';
+$indextypes = queryExecute($typeQuery, true);
+// echo $loggedInUser['name'];
+
+$placeQuery = 'select * from places';
+$indexplaces = queryExecute($placeQuery, true);
+
+$foodQuery = "select * from foods ORDER BY id DESC";
+
+if ($keyword !== ""){
+    $foodQuery .= " where (name like '%$keyword%')";
+}
+
+$foods = queryExecute($foodQuery, true);
+
 
 ?>
 <!DOCTYPE html>
@@ -72,31 +75,7 @@ $foods = queryExecute($getFoodTypePlaceQuery, true);
                             <form action="" method="get">
                                 <div class="form-row">
                                     <div class="form-group col-4">
-                                        <input type="text" value="<?= $keyword ?>" class="form-control" name="keyword" placeholder="Nhập tên loại thực phẩm...">
-                                    </div>
-                                    <div class="form-group col-3">
-                                        <select name="role" class="form-control select2">
-                                            <option selected value="">Tất cả loại</option>
-                                            <?php foreach ($types as $type) : ?>
-                                                <option <?php if ($food_type['type_id'] = $type['id']) {
-                                                            echo "selected";
-                                                        } ?> value="<?= $type['id'] ?>">
-                                                    <?= $type['name'] ?>
-                                                </option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-3">
-                                        <select name="role" class="form-control">
-                                            <option selected value="">Tất cả địa điểm</option>
-                                            <?php foreach ($places as $place) : ?>
-                                                <option <?php if ($food_place['place_id'] = $place['id']) {
-                                                            echo "selected";
-                                                        } ?> value="<?= $place['id'] ?>">
-                                                    <?= $place['name'] ?>
-                                                </option>
-                                            <?php endforeach; ?>
-                                        </select>
+                                        <input type="text" value="<?= $keyword ?>" class="form-control" name="keyword" placeholder="Nhập tên thực phẩm, giá...">
                                     </div>
                                     <div class="form-group col-2">
                                         <button type="submit" class="btn btn-success">Tìm kiếm</button>
@@ -104,59 +83,56 @@ $foods = queryExecute($getFoodTypePlaceQuery, true);
                                 </div>
                             </form>
                         </div>
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <table id="example1" class="table table-bordered table-hover">
-                                            <thead>
-                                                <th>ID</th>
-                                                <th>Tên</th>
-                                                <th>Loại</th>
-                                                <th>Địa điểm</th>
-                                                <th style="width:350px;">Ảnh</th>
-                                                <th>Giá</th>
-                                                <th>Thời gian mở</th>
-                                                <th>Thời gian đóng</th>
-                                                <th>Nội dung</th>
-                                                <th>
-                                                    <a href="<?= ADMIN_URL . 'foods/add-form.php' ?>" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Thêm</a>
-                                                </th>
-                                            </thead>
-                                            <tbody>
-                                                <?php foreach ($foods as $food) : ?>
-                                                    <tr>
-                                                        <td>
-                                                            <?= $food['id'] ?>
-                                                        </td>
-                                                        <td><?= $food['name'] ?></td>
-                                                        <td><?= $food['type_name'] ?></td>
-                                                        <td><?= $food['place_name'] ?></td>
-                                                        <td>
-                                                            <div style="width:30%">
-                                                                <img class="img-fluid" src="<?= BASE_URL . $food['image'] ?>" alt="">
-                                                            </div>
-                                                        </td>
-                                                        <td><?= $food['price'] ?></td>
-                                                        <td><?= $food['time_start'] ?></td>
-                                                        <td><?= $food['time_end'] ?></td>
-                                                        <td><?= $food['description'] ?></td>
-                                                        <td>
-                                                            <a href="<?= ADMIN_URL . 'foods/edit-form.php?id=' . $food['id'] ?>" class="btn btn-sm btn-info">
-                                                                <i class="fa fa-pencil-alt"></i>
-                                                            </a>
-                                                            <a href="<?= ADMIN_URL . 'foods/remove.php?id=' . $food['id'] ?>" class="btn-remove btn btn-sm btn-danger">
-                                                                <i class="fa fa-trash"></i>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                <?php endforeach; ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <!-- /.card-body -->
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <table id="example1" class="table table-bordered table-hover">
+                                        <thead>
+                                            <th>ID</th>
+                                            <th>Tên</th>
+                                            <th style="width:350px;">Ảnh</th>
+                                            <th>Giá</th>
+                                            <th>Thời gian mở</th>
+                                            <th>Thời gian đóng</th>
+                                            <th>Nội dung</th>
+                                            <th>
+                                                <a href="<?= ADMIN_URL . 'foods/add-form.php' ?>" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Thêm</a>
+                                            </th>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($foods as $food) : ?>
+                                                <tr>
+                                                    <td>
+                                                        <?= $food['id'] ?>
+                                                    </td>
+                                                    <td><?= $food['name'] ?></td>
+                                                    </td>
+                                                    <td>
+                                                        <div style="width:30%">
+                                                            <img class="img-fluid" src="<?= BASE_URL . $food['image'] ?>" alt="">
+                                                        </div>
+                                                    </td>
+                                                    <td><?= $food['price'] ?></td>
+                                                    <td><?= $food['time_start'] ?></td>
+                                                    <td><?= $food['time_end'] ?></td>
+                                                    <td><?= $food['description'] ?></td>
+                                                    <td>
+                                                        <a href="<?= ADMIN_URL . 'foods/edit-form.php?id=' . $food['id'] ?>" class="btn btn-sm btn-info">
+                                                            <i class="fa fa-pencil-alt"></i>
+                                                        </a>
+                                                        <a href="<?= ADMIN_URL . 'foods/remove.php?id=' . $food['id'] ?>" class="btn-remove btn btn-sm btn-danger">
+                                                            <i class="fa fa-trash"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
                                 </div>
-                                <!-- /.card -->
+                                <!-- /.card-body -->
                             </div>
+                            <!-- /.card -->
+                        </div>
                     </div>
                     <!-- /.row -->
 

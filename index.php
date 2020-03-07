@@ -4,20 +4,17 @@ session_start();
 require_once "./config/utils.php";
 // $loggedInUser = $_SESSION[AUTH];
 
-$getFoodQuery = "select * from foods";
+$getFoodQuery = "select * from foods ORDER BY id DESC LIMIT 6";
 $foods = queryExecute($getFoodQuery, true);
 
-$getFoodIdQuery = "select id from foods";
-$foodId = queryExecute($getFoodIdQuery, true);
-
 for ($i = 0; $i < count($foods); $i++) {
-	$getAddressQuery = "select p.id,
+	$getPlaceQuery = "select p.id,
 						p.name
 						from food_place fp
 						join places p 
 						on fp.place_id = p.id
-						where fp.food_id = " . $foods[$i]['id'];
-	$places = queryExecute($getAddressQuery, true);
+						where fp.food_id = " . $foods[$i]['id'];			
+	$places = queryExecute($getPlaceQuery, true);
 	$foods[$i]['places'] = $places;
 
 	$getTypeQuery = "select t.id,

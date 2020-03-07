@@ -4,17 +4,32 @@ session_start();
 require_once "./config/utils.php";
 
 $id = isset($_GET['id']) ? $_GET['id'] : -1;
-
 // $loggedInUser = $_SESSION[AUTH];
-$typeQuery = 'select * from types';
-$types = queryExecute($typeQuery, true);
-// echo $loggedInUser['name'];
-
-$placeQuery = 'select * from places';
-$places = queryExecute($placeQuery, true);
 
 $foodQuery = "select * from foods where id = '$id'";
 $foods = queryExecute($foodQuery, true);
+
+for ($i = 0; $i < count($foods); $i++) {
+    $getPlaceQuery = "select p.id,
+						p.name
+						from food_place fp
+						join places p 
+						on fp.place_id = p.id
+						where fp.food_id = " . $foods[$i]['id'];
+    $places = queryExecute($getPlaceQuery, true);
+    $foods[$i]['places'] = $places;
+
+    $getTypeQuery = "select t.id,
+							t.name
+					from food_type ft
+					join types t
+					on ft.type_id = t.id
+					where ft.food_id = 
+					" . $foods[$i]['id'];
+    $types = queryExecute($getTypeQuery, true);
+    $foods[$i]['types'] = $types;
+}
+
 
 $commentQuery = "select 
                     cm.*, u.name user_name
@@ -87,11 +102,9 @@ $comments = queryExecute($commentQuery, true);
                                             <span><a href="#">Giờ mở/đóng cửa</a><span class="date"><?= $food['time_start'] ?>/<?= $food['time_end'] ?></span></span>
                                             <h3><?= $food['name'] ?></h3>
                                             <p class="post_intro ">Địa Điểm:
-                                                <em><?php foreach ($places as $place) : ?>
-                                                        <a href="#">
-                                                            <?= $place['name'] ?>
-                                                        </a>,
-                                                    <?php endforeach ?>
+                                                <em><?php foreach ($food['places'] as $place) : ?>
+                                                            <a href="#"><?= $place['name'] ?></a>
+                                                        <?php endforeach ?>
                                                 </em>
                                             </p>
                                             <p class="text"><?= $food['description'] ?></p>
@@ -99,11 +112,9 @@ $comments = queryExecute($commentQuery, true);
                                         </div>
                                         <div class="directify_fn_tags">
                                             <label>Loại:</label>
-                                            <em><?php foreach ($types as $type) : ?>
-                                                    <a href="#">
-                                                        <?= $type['name'] ?>
-                                                    </a>,
-                                                <?php endforeach ?>
+                                            <em><?php foreach ($food['types'] as $type) : ?>
+                                                            <a href="#"><?= $type['name'] ?></a>
+                                                        <?php endforeach ?>
                                             </em>
                                         </div>
                                     </div>

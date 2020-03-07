@@ -70,7 +70,7 @@ $foods = queryExecute($getIdQuery,true);
 
                             <div class="form-group">
                                 <label for="">Loại thực phẩm</label><br>
-                                    <select name="type[]" multiple="multiple" class="select2" data-placeholder="Chọn loại thực phẩm" id="" style="width: 100%;">
+                                    <select name="type" multiple="multiple" class="select2" data-placeholder="Chọn loại thực phẩm" id="" style="width: 100%;">
                                         <?php foreach($types as $type):?>
                                             <option value="<?= $type['id']?>"><?= $type['name']?></option>
                                         <?php endforeach?>
@@ -78,7 +78,7 @@ $foods = queryExecute($getIdQuery,true);
                             </div>            
                             <div class="form-group">
                                 <label for="">Địa điểm</label><br>
-                                <select name="place[]" multiple="multiple" class="select2" data-placeholder="Chọn địa điểm" id="" style="width: 100%;">
+                                <select name="place" multiple="multiple" class="select2" data-placeholder="Chọn địa điểm" id="" style="width: 100%;">
                                     <?php foreach($places as $place):?>
                                         <option value="<?= $place['id']?>"><?= $place['name']?></option>
                                     <?php endforeach?> 
@@ -161,6 +161,12 @@ $foods = queryExecute($getIdQuery,true);
                     }
                 },
             },
+            place: {
+                required: true,
+            },
+            type: {
+                required: true,
+            },
             price: {
                 required: true,
                 maxlength: 191
@@ -174,6 +180,9 @@ $foods = queryExecute($getIdQuery,true);
             image: {
                 required: true,
                 extension: "png|jpg|jpeg|gif"
+            },
+            description:{
+                required: true,
             }
         },
         messages: {
@@ -182,6 +191,12 @@ $foods = queryExecute($getIdQuery,true);
                 maxlength: "Số lượng ký tự tối đa bằng 191 ký tự",
                 remote: "Tên thực phẩm đã tồn tại, vui lòng sử dụng thực phẩm khác"
             },
+            place: {
+                required: "Hãy nhập địa điểm"
+            },
+            type: {
+                required: "Hãy nhập loại thực phẩm"
+            },
             price:{
                 required: "Hãy nhập giá",
                 maxlength: "Số lượng ký tự tối đa bằng 191 ký tự"
@@ -189,9 +204,18 @@ $foods = queryExecute($getIdQuery,true);
             house_no:{
                 maxlength: "Số lượng ký tự tối đa bằng 191 ký tự"
             },
+            time_start:{
+                required: "Hãy nhập giờ mở bán"
+            },
+            time_end:{
+                required: "Hãy nhập giờ đóng cửa"
+            },
             image: {
                 required: "Hãy nhập ảnh đại diện",
                 extension: "Hãy nhập đúng định dạng ảnh (jpg | jpeg | png | gif)"
+            },
+            description: {
+                required: "Hãy nhập nội dung mô tả"
             }
         }
     });

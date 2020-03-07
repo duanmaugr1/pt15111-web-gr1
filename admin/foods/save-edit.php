@@ -47,17 +47,27 @@ if($image['size'] > 0){
     move_uploaded_file($image['tmp_name'], "../../public/images/" . $filename);
     $filename = "public/images/" . $filename;
 }
+if($filename==null){
+    $updateFoodQuery = "update foods 
+                        set
+                            name = '$name',
+                            price = $price, 
+                            time_start = '$time_start', 
+                            time_end = '$time_end', 
+                            description = '$description'
+                        where id = $id";
+} else{
+    $updateFoodQuery = "update foods 
+                        set
+                            name = '$name', 
+                            image = '$filename', 
+                            price = $price, 
+                            time_start = '$time_start', 
+                            time_end = '$time_end', 
+                            description = '$description'
+                        where id = $id";    
+}
 
-$updateFoodQuery = "update foods 
-                    set
-                          name = '$name', 
-                          image = '$filename', 
-                          price = $price, 
-                          time_start = '$time_start', 
-                          time_end = '$time_end', 
-                          description = '$description'
-                    where id = $id";
-                    // dd($updateFoodQuery);
 queryExecute($updateFoodQuery, false);
 header("location: " . ADMIN_URL . "foods");
 die;
