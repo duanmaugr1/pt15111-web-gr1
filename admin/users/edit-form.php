@@ -89,7 +89,7 @@ if($user['id'] != $_SESSION[AUTH]['id'] && $user['role_id'] <= $_SESSION[AUTH]['
                                             <label for="">Ảnh đại diện</label>
                                         </div>
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input" name="avatar" onchange="encodeImageFileAsURL(this)">
+                                            <input type="file" class="custom-file-input" value="<?= $user['image'] ?>" name="avatar" onchange="encodeImageFileAsURL(this)">
                                             <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                                         </div>
                                     </div>
@@ -150,7 +150,7 @@ if($user['id'] != $_SESSION[AUTH]['id'] && $user['role_id'] <= $_SESSION[AUTH]['
     function encodeImageFileAsURL(element) {
         var file = element.files[0];
         if(file === undefined){
-            $('#preview-img').attr('src', "<?= BASE_URL . $user['avatar'] ?>");
+            $('#preview-img').attr('src', "<?= BASE_URL . $user['image'] ?>");
             return false;
         }
         var reader = new FileReader();

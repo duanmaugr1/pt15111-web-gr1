@@ -32,10 +32,10 @@ for ($i = 0; $i < count($foods); $i++) {
 
 
 $commentQuery = "select 
-                    cm.*, u.name user_name
+                    cm.*, u.name as user_name, u.image as user_image
                     from comments cm
                     join users u
-                    on u.id = cm.user_id ORDER BY id DESC LIMIT 5";
+                    on u.id = cm.user_id ORDER BY cm.id DESC LIMIT 2";
 $comments = queryExecute($commentQuery, true);
 
 ?>
@@ -103,8 +103,8 @@ $comments = queryExecute($commentQuery, true);
                                             <h3><?= $food['name'] ?></h3>
                                             <p class="post_intro ">Địa Điểm:
                                                 <em><?php foreach ($food['places'] as $place) : ?>
-                                                            <a href="#"><?= $place['name'] ?></a>
-                                                        <?php endforeach ?>
+                                                        <a href="#"><?= $place['name'] ?></a>
+                                                    <?php endforeach ?>
                                                 </em>
                                             </p>
                                             <p class="text"><?= $food['description'] ?></p>
@@ -113,8 +113,8 @@ $comments = queryExecute($commentQuery, true);
                                         <div class="directify_fn_tags">
                                             <label>Loại:</label>
                                             <em><?php foreach ($food['types'] as $type) : ?>
-                                                            <a href="#"><?= $type['name'] ?></a>
-                                                        <?php endforeach ?>
+                                                    <a href="#"><?= $type['name'] ?></a>
+                                                <?php endforeach ?>
                                             </em>
                                         </div>
                                     </div>
@@ -132,14 +132,14 @@ $comments = queryExecute($commentQuery, true);
                                                 </div>
 
                                                 <!-- #1 COMMENT -->
-                                                <div class="comment_single">
-                                                    <?php foreach ($comments as $comm) : ?>
+                                                <?php foreach ($comments as $comm) : ?>
+                                                    <div class="comment_single">
                                                         <div class="person_info">
                                                             <div class="info">
                                                                 <div class="img_holder">
-                                                                    <img src="<?= THEME_ASSET_URL ?>img/blog/single1-com1.jpg" alt="" />
+                                                                    <img src="<?= BASE_URL . $comm['user_image'] ?>" alt="">
                                                                 </div>
-                                                                <span class="name"><?= $comm['user_name']?></span>
+                                                                <span class="name"><?= $comm['user_name'] ?></span>
                                                             </div>
                                                         </div>
                                                         <div class="person_comment">
@@ -152,8 +152,8 @@ $comments = queryExecute($commentQuery, true);
                                                                 </p>
                                                             </div>
                                                         </div>
-                                                    <?php endforeach ?>
-                                                </div>
+                                                    </div>
+                                                <?php endforeach ?>
                                                 <!-- /#1 COMMENT -->
 
                                             </div>
@@ -167,7 +167,7 @@ $comments = queryExecute($commentQuery, true);
                                                     </div>
                                                     <form action="<?= BASE_URL . 'save-comment.php' ?>" method="post">
                                                         <div class="your-comment">
-                                                            <input hidden name="food_id" value="<?= $id?>"></input>
+                                                            <input hidden name="food_id" value="<?= $id ?>"></input>
                                                             <label>Bình luận của bạn<span>*</span></label>
                                                             <textarea id="creator-comment" name="content" cols="3" rows="10"></textarea>
                                                         </div>

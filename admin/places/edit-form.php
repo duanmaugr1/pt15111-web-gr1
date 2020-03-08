@@ -59,7 +59,11 @@ $placesEdit = queryExecute($getPlacesEditQuery, false);
                                                     <label for="">Địa điểm<span class="text-danger">*</span></label>
                                                     <input type="text" class="form-control" name="name"
                                                         value="<?php echo $placesEdit['name'] ?>">
+                                                    <?php if(isset($_GET['nameer'])): ?>  
+                                                        <p><?= $_GET['nameer'] ?></p>  
+                                                    <?php endif; ?>
                                                 </div>
+
 
                                                 <div class="col-12 d-flex justify-content-end">
                                                     <button type="submit" class="btn btn-primary">Sửa</button>

@@ -56,7 +56,9 @@ checkAdminLoggedIn();
                                                     <label for="">Địa điểm <span class="text-danger">*</span></label>
                                                     <input type="text" class="form-control" name="name">
                                                 </div>
-
+                                                <?php if (isset($_GET['namer'])): ?>
+                                                    <p><?= $_GET['namer'] ?></p>
+                                                <?php endif; ?>
                                                 <div class="col-12 d-flex justify-content-end">
                                                     <button type="submit" class="btn btn-primary">Thêm
                                                         mới</button>&nbsp;
@@ -65,7 +67,6 @@ checkAdminLoggedIn();
                                             </div>
                                     </form>
                                 </div>
-
                             </div>
                         </div>
                     </div>

@@ -6,55 +6,52 @@
                     <a class="dark" href="<?= BASE_URL. 'index.php' ?>"><img src="<?= THEME_ASSET_URL ?>img/logo-dark.png" alt="" /></a>
                     <a class="light" href="<?= BASE_URL . 'index.php' ?>"><img src="<?= THEME_ASSET_URL ?>img/logo-light.png" alt="" /></a>
                 </div>
-                <div class="directify_fn_header_search">
-                    <a href="#">
-                        <img class="svg" src="<?= THEME_ASSET_URL ?>img/svg/search.svg" alt="" />
-                        Tìm kiếm
-                    </a>
-                    <div class="directify_fn_header_search_see_wrap one">
-                        <div class="header_search_see">
-                            <div class="selects">
-                                <div>
-                                    <input class="directify_fn_search_input" type="search" name="keyword" placeholder="Bạn đang tìm kiếm món ăn gì?" />
+                <?php if(!isset($_GET['404'])):?>
+                    <div class="directify_fn_header_search">
+                        <a href="#">
+                            <img class="svg" src="<?= THEME_ASSET_URL ?>img/svg/search.svg" alt="" />
+                            Tìm kiếm
+                        </a>
+                        <div class="directify_fn_header_search_see_wrap one">
+                            <form action="" method="get">
+                                <div class="header_search_see">
+                                    <div class="selects">
+                                        <div>
+                                            <input class="directify_fn_search_input" type="search" value="<?= $keyword ?>" name="keyword" placeholder="Bạn đang tìm kiếm món ăn gì?" />
+                                        </div>
+                                        <div>
+                                            <select class="directify_fn_select" name="typeSearch">
+                                                <option value="0">Tất Cả Các Thể Loại</option>
+                                                <?php foreach ($indextypes as $key => $type): ?>
+                                                    <option value="<?= $type['id'] ?>"><?= $type['name'] ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <select class="directify_fn_select" name="placeSearch">
+                                                <option value="0">Tất Cả Các Địa Điểm</option>
+                                                <?php foreach ($indexplaces as $key => $place): ?>
+                                                    <option value="<?= $place['id'] ?>"><?= $place['name'] ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <input type="submit" class="btn btn-primary" value="Tìm kiếm">
                                 </div>
-                                <div>
-                                    <select class="directify_fn_select">
-                                        <option value="all">Tất Cả Các Thể Loại</option>
-                                        <?php foreach ($types as $key => $type): ?>
-                                            <option value="<?= $type['id'] ?>"><?= $type['name'] ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
-                                <div>
-                                    <select class="directify_fn_select">
-                                        <option value="all">Tất Cả Các Địa Điểm</option>
-                                        <?php foreach ($places as $key => $place): ?>
-                                            <option value="<?= $place['id'] ?>"><?= $place['name'] ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <a href="#"><img class="svg" src="<?= THEME_ASSET_URL ?>img/svg/search.svg" alt="" /><span>Search</span></a>
+                            </form>
                         </div>
                     </div>
-                </div>
+                <?php endif; ?>
                 <div class="directify_fn_header_nav_list">
                     <ul class="nav__hor">
                         <li>
                             <a href="#">Khám phá<i class="xcon-angle-down"></i></a>
                             <ul class="sub_menu">
-                                <li><a href="listing.html">Các món ăn</a></li>
-                                <li><a href="listing.html">Địa điểm</a></li>
-                                <li><a href="listing.html">Các loại món</a></li>
-                                <li><a href="listing.html">Thư viện ảnh</a></li>
-                                <li><a href="listing.html">Dịch vụ</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#">Blog<i class="xcon-angle-down"></i></a>
-                            <ul class="sub_menu">
-                                <li><a href="blog.html">Blog</a></li>
-                                <li><a href="blog_single.html">Single Page</a></li>
+                                <li><a href="<?= BASE_URL . 'index.php'?>">Các món ăn</a></li>
+                                <li><a href="<?= BASE_URL . 'index.php?place' ?>">Địa điểm</a></li>
+                                <li><a href="<?= BASE_URL . 'index.php?type' ?>">Các loại món</a></li>
+                                <li><a href="<?= BASE_URL . 'index.php?image' ?>">Thư viện ảnh</a></li>
+                                <li><a href="<?php echo BASE_URL . '404.php?404' ?>">Dịch vụ</a></li>
                             </ul>
                         </li>
                         <?php if(!isset($_SESSION[AUTH])) :?>

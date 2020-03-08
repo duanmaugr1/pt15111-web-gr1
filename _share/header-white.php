@@ -43,18 +43,11 @@
                         <li>
                             <a href="#">Khám phá<i class="xcon-angle-down"></i></a>
                             <ul class="sub_menu">
-                                <li><a href="listing.html">Các món ăn</a></li>
-                                <li><a href="listing.html">Địa điểm</a></li>
-                                <li><a href="listing.html">Các loại món</a></li>
-                                <li><a href="listing.html">Thư viện ảnh</a></li>
-                                <li><a href="listing.html">Dịch vụ</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#">Blog<i class="xcon-angle-down"></i></a>
-                            <ul class="sub_menu">
-                                <li><a href="blog.html">Blog</a></li>
-                                <li><a href="blog_single.html">Single Page</a></li>
+                                <li><a href="<?= BASE_URL . 'index.php'?>">Các món ăn</a></li>
+                                <li><a href="<?= BASE_URL . 'index.php?place' ?>">Địa điểm</a></li>
+                                <li><a href="<?= BASE_URL . 'index.php?type' ?>">Các loại món</a></li>
+                                <li><a href="<?= BASE_URL . 'index.php?image' ?>">Thư viện ảnh</a></li>
+                                <li><a href="<?php echo BASE_URL . '404.php?404' ?>">Dịch vụ</a></li>
                             </ul>
                         </li>
                         <?php if(!isset($_SESSION[AUTH])) :?>

@@ -51,7 +51,7 @@ if($nameerr . $emailerr != "" ){
 }
 
 // upload file
-$filename = $user['avatar'];
+$filename = $user['image'];
 if($avatar['size'] > 0){
     $filename = uniqid() . '-' . $avatar['name'];
     move_uploaded_file($avatar['tmp_name'], "../../public/images/" . $filename);

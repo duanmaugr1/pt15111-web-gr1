@@ -16,14 +16,17 @@ if(strlen($name) < 2 || strlen($name) > 191){
 
 // check plate_number đã tồn tại hay chưa
 $checkPlateQuery = "select * from places where name = '$name' and id != $id";
-
 $plates = queryExecute($checkPlateQuery, true);
-if($plates == "" && count($plates) > 0){
+
+
+if(count($plates) != 0){
+    
     $nameer = "Địa điểm đã tồn tại, vui lòng sử dụng biển số khác";
 }
 
 
 if($nameer != "" ){
+    
     header('location: ' . ADMIN_URL . "places/edit-form.php?nameer=$nameer");
     die;
 }

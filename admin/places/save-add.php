@@ -11,11 +11,16 @@ if(strlen($name) < 2 || strlen($name) > 191){
     $namer = "Yêu cầu nhập trong khoảng 2-191 ký tự";
 }
 
-// check plate_number đã tồn tại hay chưa
+// check đã tồn tại hay chưa
 $checkNameQuery = "select * from places where name = '$name'";
 $names = queryExecute($checkNameQuery, true);
-if($names == "" && count($plates) > 0){
+if(count($names) != 0){
     $namer = "Địa điểm đã tồn tại, vui lòng nhập địa điểm khác";
+}
+
+if ($namer != ""){
+    header ("location: ". ADMIN_URL . "places/add-form.php?namer=$namer");
+    die;
 }
 
 

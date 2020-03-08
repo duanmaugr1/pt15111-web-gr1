@@ -2,7 +2,6 @@
 session_start();
 require_once '../../config/utils.php';
 $name = $_POST['name'];
-
 $typeId = isset($_POST['id']) ? $_POST['id'] : false;
 
 $checkTypeQuery = "select * from types where name = '$name'";

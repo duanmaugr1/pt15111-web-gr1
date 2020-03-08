@@ -10,8 +10,8 @@
     <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-            <div class="image">
-            <img src="<?php echo BASE_URL . $_SESSION[AUTH]['image'] ?>" class="img-circle elevation-2" alt="User Image">
+        <div class="image">
+                <img src="<?php echo BASE_URL . $_SESSION[AUTH]['image'] ?>" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
                 <a href="#" class="d-block"><?= $_SESSION[AUTH]['name']?></a>
@@ -119,23 +119,6 @@
                             <a href="<?= ADMIN_URL . 'places/add-form.php'?>" class="nav-link">
                                 <i class="fa fa-plus nav-icon"></i>
                                 <p>Thêm địa điểm</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
-                        <i class="fas fa-star-half-alt nav-icon"></i>
-                        <p>
-                            Đánh giá
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="<?= ADMIN_URL . 'ratings'?>" class="nav-link">
-                                <i class="fa fa-list-ol nav-icon"></i>
-                                <p>Danh sách</p>
                             </a>
                         </li>
                     </ul>

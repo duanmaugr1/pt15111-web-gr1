@@ -5,8 +5,7 @@ checkAdminLoggedIn();
 
 $id = isset($_GET['id']) ? $_GET['id'] : -1;
 
-$foodQuery = "select * from foods
-                where id = $id";
+$foodQuery = "select * from foods where id = $id";
 $foods = queryExecute($foodQuery, false);
 
 $typeQuery = "select * from types";
@@ -15,23 +14,11 @@ $types = queryExecute($typeQuery, true);
 $placeQuery = "select * from places";
 $places = queryExecute($placeQuery, true);
 
-$foodTypeQuery = "select * from food_type where food_id = $id";
-$foodType = queryExecute($foodTypeQuery, false);
-
-$foodPlaceQuery = "select * from food_place where food_id = $id";
-$foodPlace = queryExecute($foodPlaceQuery, false);
 
 if (!$foods) {
     header("location: " . ADMIN_URL . 'foods?msg=Thực phẩm không tồn tại');
     die;
 }
-
-// kiểm tra xem có quyền để thực hiện edit hay không
-// if($foods['id'] != $_SESSION[AUTH]['id']){
-//     header("location: " . ADMIN_URL . 'foods?msg=Bạn không có quyền sửa thông tin tài khoản này');die;
-// }
-
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -91,6 +78,22 @@ if (!$foods) {
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label for="">Loại thực phẩm</label><br>
+                                    <select name="type[]" multiple="multiple" class="select2" data-placeholder="Chọn loại thực phẩm" id="" style="width: 100%;" required>
+                                        <?php foreach ($types as $type) : ?>
+                                            <option value="<?= $type['id'] ?>"><?= $type['name'] ?></option>
+                                        <?php endforeach ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Địa điểm</label><br>
+                                    <select name="place[]" multiple="multiple" class="select2" data-placeholder="Chọn địa điểm" id="" style="width: 100%;" required>
+                                        <?php foreach ($places as $place) : ?>
+                                            <option value="<?= $place['id'] ?>"><?= $place['name'] ?></option>
+                                        <?php endforeach ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
                                     <label for="">Giá</label>
                                     <input type="number" class="form-control" name="price" value="<?= $foods['price'] ?>">
                                     <?php if (isset($_GET['priceerr'])) : ?>
@@ -142,61 +145,73 @@ if (!$foods) {
             }
             reader.readAsDataURL(file);
         }
-        $('#edit-user-form').validate({
-            rules: {
-                name: {
-                    required: true,
-                    maxlength: 191
-                },
-                email: {
-                    required: true,
-                    maxlength: 191,
-                    email: true,
-                    remote: {
-                        url: "<?= ADMIN_URL . 'foods/verify-food-existed.php' ?>",
-                        type: "post",
-                        data: {
-                            food: function() {
-                                return $("input[name='food']").val();
-                            },
-                            id: <?= $foods['id']; ?>
+        $('#add-food-form').validate({
+        rules:{
+            name: {
+                required: true,
+                maxlength: 191,
+                remote: {
+                    url: "<?= ADMIN_URL . 'foods/verify-food-existed.php'?>",
+                    type: "post",
+                    data: {
+                        name: function() {
+                            return $( "input[name='name']" ).val();
                         }
                     }
                 },
-                phone_number: {
-                    number: true
-                },
-                house_no: {
-                    maxlength: 191
-                },
-                image: {
-                    extension: "png|jpg|jpeg|gif"
-                }
             },
-            messages: {
-                name: {
-                    required: "Hãy nhập tên người dùng",
-                    maxlength: "Số lượng ký tự tối đa bằng 191 ký tự"
-                },
-                email: {
-                    required: "Hãy nhập email",
-                    maxlength: "Số lượng ký tự tối đa bằng 191 ký tự",
-                    email: "Không đúng định dạng email",
-                    remote: "Email đã tồn tại, vui lòng sử dụng email khác"
-                },
-                phone_number: {
-                    min: "Bắt buộc là số có 10 chữ số",
-                    max: "Bắt buộc là số có 10 chữ số",
-                    number: "Nhập định dạng số"
-                },
-                house_no: {
-                    maxlength: "Số lượng ký tự tối đa bằng 191 ký tự"
-                },
-                image: {
-                    extension: "Hãy nhập đúng định dạng ảnh (jpg | jpeg | png | gif)"
-                }
+            price: {
+                required: true,
+                maxlength: 191
+            },
+            time_start:{
+                required: true,
+            },
+            time_end:{
+                required: true,
+            },
+            image: {
+                required: true,
+                extension: "png|jpg|jpeg|gif"
+            },
+            description:{
+                required: true,
             }
-        });
+        },
+        messages: {
+            name: {
+                required: "Hãy nhập tên thực phẩm",
+                maxlength: "Số lượng ký tự tối đa bằng 191 ký tự",
+                remote: "Tên thực phẩm đã tồn tại, vui lòng sử dụng thực phẩm khác"
+            },
+            place: {
+                required: "Hãy nhập địa điểm"
+            },
+            type: {
+                required: "Hãy nhập loại thực phẩm"
+            },
+            price:{
+                required: "Hãy nhập giá",
+                maxlength: "Số lượng ký tự tối đa bằng 191 ký tự"
+            },
+            house_no:{
+                maxlength: "Số lượng ký tự tối đa bằng 191 ký tự"
+            },
+            time_start:{
+                required: "Hãy nhập giờ mở bán"
+            },
+            time_end:{
+                required: "Hãy nhập giờ đóng cửa"
+            },
+            image: {
+                required: "Hãy nhập ảnh đại diện",
+                extension: "Hãy nhập đúng định dạng ảnh (jpg | jpeg | png | gif)"
+            },
+            description: {
+                required: "Hãy nhập nội dung mô tả"
+            }
+        }
+    });
     </script>
 </body>
 

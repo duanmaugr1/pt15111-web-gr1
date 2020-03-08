@@ -90,17 +90,29 @@ $FoodTypeEdit = queryExecute($getFoodTypeEditQuery, false);
     <!-- ./wrapper -->
     <?php include_once '../_share/script.php'; ?>
     <script>
-    $('#edit-vehicle-type-form').validate({
+   $('#edit-vehicle-type-form').validate({
         rules: {
             name: {
                 required: true,
-                maxlength: 191
+                maxlength: 191,
+                remote: {
+                    url: "<?= ADMIN_URL . 'types/verify-name-type-existed.php'?>",
+                    type: "post",
+                    data: {
+                        name: function() {
+                            return $("input[name='name']").val();
+                        },
+                        id: <?= $FoodTypeEdit['id']?>
+                    }
+                }
             },
+
         },
         messages: {
             name: {
                 required: "Hãy nhập loại phương tiện",
-                maxlength: "Số lượng ký tự tối đa bằng 191 ký tự"
+                maxlength: "Số lượng ký tự tối đa bằng 191 ký tự",
+                remote: "Loại thực phẩm đã tồn tại."
             },
         }
     });

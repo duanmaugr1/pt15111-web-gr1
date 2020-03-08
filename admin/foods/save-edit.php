@@ -5,6 +5,8 @@ checkAdminLoggedIn();
 // lấy thông tin từ form gửi lên
 $id = trim($_POST['id']);
 $name = trim($_POST['name']);
+$type = $_POST['type'];
+$place = $_POST['place'];
 $price = trim($_POST['price']);
 $time_start = trim($_POST['time_start']);
 $time_end = trim($_POST['time_end']);
@@ -67,7 +69,29 @@ if($filename==null){
                             description = '$description'
                         where id = $id";    
 }
-
 queryExecute($updateFoodQuery, false);
+
+$deleteFoodType = "delete from food_type where food_id = $id";
+queryExecute($deleteFoodType, false);
+
+$deleteFoodPlace = "delete from food_place where food_id = $id";
+queryExecute($deleteFoodPlace, false);
+
+for ($i = 0; $i < count($type); $i++){
+    $insertFoodTypeQuery = "insert into food_type
+                           (type_id, food_id)
+                        values
+                            ('$type[$i]','$id')";
+
+    queryExecute($insertFoodTypeQuery, false);
+};
+for ($i = 0; $i < count($place); $i++){
+    $insertFoodTypeQuery = "insert into food_place
+                           (place_id, food_id)
+                        values
+                            ('$place[$i]','$id')";
+    queryExecute($insertFoodTypeQuery, false);
+};
+
 header("location: " . ADMIN_URL . "foods");
 die;

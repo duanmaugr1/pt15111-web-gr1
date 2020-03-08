@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 05, 2020 at 07:52 AM
+-- Generation Time: Mar 08, 2020 at 11:21 AM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.11
 
@@ -36,6 +36,21 @@ CREATE TABLE `comments` (
   `food_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `comments`
+--
+
+INSERT INTO `comments` (`id`, `user_id`, `content`, `create_at`, `food_id`) VALUES
+(1, 1, 'Chúng cũng là một nguồn protein rất tốt, khoảng 6 gram mỗi quả trứng, ngoài ra trứng có đầy đủ cá', '2020-03-06 00:00:00', 35),
+(5, 1, 'aaaaa', '2020-03-06 17:09:12', 35),
+(6, 1, 'bbbbb', '2020-03-06 17:10:36', 35),
+(7, 1, 'nnnn', '2020-03-06 17:12:11', 35),
+(8, 1, 'ád', '2020-03-06 17:12:34', 35),
+(9, 1, 'nnnn', '2020-03-06 17:13:06', 35),
+(10, 1, 'bbbb', '2020-03-06 17:13:19', 35),
+(11, 1, 'hello', '2020-03-08 16:55:41', 36),
+(12, 2, 'Test', '2020-03-08 17:16:48', 40);
+
 -- --------------------------------------------------------
 
 --
@@ -46,8 +61,6 @@ CREATE TABLE `foods` (
   `id` int(11) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
-  `type` varchar(225) NOT NULL,
-  `place` varchar(225) NOT NULL,
   `price` int(11) DEFAULT NULL,
   `time_start` time DEFAULT NULL,
   `time_end` time NOT NULL,
@@ -58,11 +71,10 @@ CREATE TABLE `foods` (
 -- Dumping data for table `foods`
 --
 
-INSERT INTO `foods` (`id`, `name`, `image`, `type`, `place`, `price`, `time_start`, `time_end`, `description`) VALUES
-(20, 'Cá nướng', 'public/images/5e609712b2068-2-min-1.jpg', '3', '2', 100000, '01:00:00', '12:59:00', 'Tốt'),
-(21, 'Thịt bò nướng', 'public/images/5e6097977f2e9-cach-lam-mon-thit-bo-luc-lac-trong-tich-tac.jpg', '3', '3', 1234213, '01:00:00', '02:00:00', ''),
-(22, 'Thịt bò hầm', 'public/images/5e6097b5df480-cach-lam-mon-thit-bo-luc-lac-trong-tich-tac.jpg', '1', '1', 1234213, '01:00:00', '13:00:00', ''),
-(23, 'Duc Dinh', 'public/images/5e6097ecde186-cach-lam-mon-thit-bo-luc-lac-trong-tich-tac.jpg', '3', '3', 1234213, '01:00:00', '12:58:00', '');
+INSERT INTO `foods` (`id`, `name`, `image`, `price`, `time_start`, `time_end`, `description`) VALUES
+(35, 'Trứng ớt', 'public/images/5e63afad6d2db-1tl3.jpg', 10000, '00:00:00', '12:59:00', 'Bảng thành phần dinh dưỡng trứng cung cấp chúng là một loại thực phẩm khá ít calo. Trứng luộc chín chỉ c 77 calo, 5 gram chất béo và một lượng carbs rất nhỏ. Chúng cũng là một nguồn protein rất tốt, khoảng 6 gram mỗi quả trứng, ngoài ra trứng có đầy đủ cá'),
+(36, 'Thịt bò hầm', 'public/images/5e612e4a25118-hoan-thanh-mon-bo-ham-tieu-xanh.jpg', 1234213, '01:00:00', '14:00:00', 'Món thịt bò hầm cà chua chỉ mới nhìn thôi đã thèm bởi màu sắc cực kì bắt bắt. Với cách làm thịt bò hầm cà chua này sẽ sử dụng phần thịt ức có cả phần nạc mềm lẫn mỡ, mùi bò không “nặng” lắm nên món ăn có mùi thơm dễ chịu và có thêm chút béo ngậy hấp dẫn, '),
+(40, 'Cá rán', 'public/images/5e62384f28b47-2-min-1.jpg', 20000, '01:00:00', '12:59:00', 'Cá là loại thực phẩm phổ biến có hầu hết trong các bữa ăn gia đình Việt. Trong đó, cá rán hay cá rán giòn là những món ăn vô cùng lý tưởng, làm tăng sự hấp dẫn cho bữa cơm gia đình. Với mùi vị thơm phức cùng màu sắc phi rán vàng giòn khá bắt mắt, chắc hẳn');
 
 -- --------------------------------------------------------
 
@@ -80,7 +92,9 @@ CREATE TABLE `food_place` (
 --
 
 INSERT INTO `food_place` (`place_id`, `food_id`) VALUES
-(3, 23);
+(1, 36),
+(1, 40),
+(2, 35);
 
 -- --------------------------------------------------------
 
@@ -98,7 +112,11 @@ CREATE TABLE `food_type` (
 --
 
 INSERT INTO `food_type` (`type_id`, `food_id`) VALUES
-(3, 23);
+(1, 35),
+(1, 40),
+(2, 35),
+(2, 40),
+(3, 36);
 
 -- --------------------------------------------------------
 
@@ -118,20 +136,9 @@ CREATE TABLE `places` (
 INSERT INTO `places` (`id`, `name`) VALUES
 (1, 'Hàm Nghi'),
 (2, 'Nguyễn Cơ Thạch'),
-(3, 'Nguyễn Trãi');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `ratings`
---
-
-CREATE TABLE `ratings` (
-  `id` int(11) NOT NULL,
-  `rate` int(11) NOT NULL,
-  `food_id` int(11) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+(3, 'Nguyễn Trãi'),
+(4, 'Ba Đình'),
+(12, 'Trúc Bạch');
 
 -- --------------------------------------------------------
 
@@ -172,7 +179,9 @@ CREATE TABLE `types` (
 INSERT INTO `types` (`id`, `name`) VALUES
 (1, 'Điểm tâm'),
 (2, 'Hải sản'),
-(3, 'Thịt');
+(3, 'Thịt'),
+(7, 'Món lẩu'),
+(8, 'Món nướng');
 
 -- --------------------------------------------------------
 
@@ -196,7 +205,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `password`, `email`, `phone_number`, `role_id`, `active`, `image`) VALUES
-(1, 'abc', '$2y$10$h8.sAHi4HuHkMLFeBSzf0OribINRKZvQkD15eVU5oWtfvK/5HI.ci', 'abc@gmail.com', '123456', 1, b'1', NULL);
+(1, 'abcd', '$2y$10$h8.sAHi4HuHkMLFeBSzf0OribINRKZvQkD15eVU5oWtfvK/5HI.ci', 'abc@gmail.com', '123456', 2, b'1', 'public/images/5e64c551e1484-15-cong-thuc-che-bien-mon-an-ngon-tu-trung-cho-tre-7-1474310242-width500height333.jpg'),
+(2, 'demo', '$2y$10$Qprl4Vvekpbt4LAg2peMGucU6HDKeUPV3T63nE4eonJay48TzkY3K', 'demo@gmail.com', '0987456321', 3, b'1', 'public/images/5e64c5e90b8fa-15-cong-thuc-che-bien-mon-an-ngon-tu-trung-cho-tre-8-1474310267-width500height333.jpg');
 
 --
 -- Indexes for dumped tables
@@ -239,14 +249,6 @@ ALTER TABLE `places`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `ratings`
---
-ALTER TABLE `ratings`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`),
-  ADD KEY `food_id` (`food_id`);
-
---
 -- Indexes for table `roles`
 --
 ALTER TABLE `roles`
@@ -273,25 +275,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `foods`
 --
 ALTER TABLE `foods`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT for table `places`
 --
 ALTER TABLE `places`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `ratings`
---
-ALTER TABLE `ratings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -303,13 +299,13 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `types`
 --
 ALTER TABLE `types`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
@@ -335,13 +331,6 @@ ALTER TABLE `food_place`
 ALTER TABLE `food_type`
   ADD CONSTRAINT `food_type-t` FOREIGN KEY (`type_id`) REFERENCES `types` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `food_type_f` FOREIGN KEY (`food_id`) REFERENCES `foods` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `ratings`
---
-ALTER TABLE `ratings`
-  ADD CONSTRAINT `rating_food` FOREIGN KEY (`food_id`) REFERENCES `foods` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `rating_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `users`

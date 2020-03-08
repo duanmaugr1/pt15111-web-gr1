@@ -102,7 +102,7 @@ checkAdminLoggedIn();
             name: {
                 required: "Hãy nhập loại phương tiện",
                 maxlength: "Số lượng ký tự tối đa bằng 191 ký tự",
-                remote: "Loại phương tiện đã tồn tại."
+                remote: "Loại thực phẩm đã tồn tại."
             },
         }
     });

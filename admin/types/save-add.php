@@ -12,7 +12,7 @@ if(strlen($name) < 2 || strlen($name) > 191){
     $nameerr = "Yêu cầu nhập tên loại thức ăn trong khoảng 2-191 ký tự";
 }
 
-// check loại xe đã tồn tại hay chưa
+// check loại thực phẩm đã tồn tại hay chưa
 $checkTypeQuery = "select * from types where name = '$name'";
 $types = queryExecute($checkTypeQuery, true);
 if($nameExisterr == "" && count($types) > 0){

@@ -8,7 +8,7 @@ $types = queryExecute($getTypeQuery, true);
 $getPlaceQuery = "select * from places";
 $places = queryExecute($getPlaceQuery, true);
 
-$keyword = isset($_GET['keyword']) == true? $_GET['keyword'] : "";
+$keyword = isset($_GET['keyword']) == true ? $_GET['keyword'] : "";
 $typeId = isset($_GET['typeSearch']) == true ? $_GET['typeSearch'] : "";
 $placeId = isset($_GET['placeSearch']) == true ? $_GET['placeSearch'] : "";
 
@@ -21,12 +21,33 @@ $indexplaces = queryExecute($placeQuery, true);
 
 $foodQuery = "select * from foods ORDER BY id DESC";
 
-if ($keyword !== ""){
+if ($keyword !== "") {
     $foodQuery .= " where (name like '%$keyword%')";
 }
 
-$foods = queryExecute($foodQuery, true);
+$getFoodQuery = "select * from foods ORDER BY id DESC";
+$foods = queryExecute($getFoodQuery, true);
 
+for ($i = 0; $i < count($foods); $i++) {
+    $getPlaceQuery = "select p.id,
+						p.name
+						from food_place fp
+						join places p 
+						on fp.place_id = p.id
+						where fp.food_id = " . $foods[$i]['id'];
+    $places = queryExecute($getPlaceQuery, true);
+    $foods[$i]['places'] = $places;
+
+    $getTypeQuery = "select t.id,
+							t.name
+					from food_type ft
+					join types t
+					on ft.type_id = t.id
+					where ft.food_id = 
+					" . $foods[$i]['id'];
+    $types = queryExecute($getTypeQuery, true);
+    $foods[$i]['types'] = $types;
+}
 
 ?>
 <!DOCTYPE html>
@@ -91,6 +112,8 @@ $foods = queryExecute($foodQuery, true);
                                             <th>ID</th>
                                             <th>Tên</th>
                                             <th style="width:350px;">Ảnh</th>
+                                            <th>Loại thực phẩm</th>
+                                            <th>Địa điểm</th>
                                             <th>Giá</th>
                                             <th>Thời gian mở</th>
                                             <th>Thời gian đóng</th>
@@ -108,9 +131,19 @@ $foods = queryExecute($foodQuery, true);
                                                     <td><?= $food['name'] ?></td>
                                                     </td>
                                                     <td>
-                                                        <div style="width:30%">
+                                                        <div style="width: 100%">
                                                             <img class="img-fluid" src="<?= BASE_URL . $food['image'] ?>" alt="">
                                                         </div>
+                                                    </td>
+                                                    <td>
+                                                        <?php foreach ($food['types'] as $type) : ?>
+                                                            <?= $type['name'] ?>,
+                                                        <?php endforeach ?>
+                                                    </td>
+                                                    <td>
+                                                        <?php foreach ($food['places'] as $place) : ?>
+                                                            <?= $place['name'] ?>,
+                                                        <?php endforeach ?>
                                                     </td>
                                                     <td><?= $food['price'] ?></td>
                                                     <td><?= $food['time_start'] ?></td>
@@ -167,7 +200,7 @@ $foods = queryExecute($foodQuery, true);
             });
             <?php if (isset($_GET['msg'])) : ?>
                 Swal.fire({
-                    position: 'bottom-end',
+                    position: 'center',
                     icon: 'warning',
                     title: "<?= $_GET['msg']; ?>",
                     showConfirmButton: false,
