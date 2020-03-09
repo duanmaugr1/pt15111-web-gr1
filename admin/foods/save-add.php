@@ -24,7 +24,7 @@ if(strlen($name) < 2 || strlen($name) > 191){
 $checkFoodQuery = "select * from foods where name = '$name'";
 $foods = queryExecute($checkFoodQuery, true);
 if($nameerr == "" && count($foods) > 0){
-    $nameerr = "tên thức đã tồn tại, vui lòng sử dụng tên thức ăn khác khác";
+    $nameerr = "Tên thức đã tồn tại, vui lòng sử dụng tên thức ăn khác khác";
 }
  
 if($nameerr != "" ){

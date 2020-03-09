@@ -32,13 +32,13 @@ if(strlen($name) < 2 || strlen($name) > 191){
  
 // check name đã tồn tại hay chưa
 $checkFoodQuery = "select * from foods where name = '$name' and id != $id";
-$foods = queryExecute($checkFoodlQuery, true);
+$foods = queryExecute($checkFoodQuery, true);
 if($nameerr == "" && count($foods) > 0){
-    $nameerr = "name đã tồn tại, vui lòng sử dụng email khác";
+    $nameerr = "Tên thực phẩm đã tồn tại, vui lòng sử dụng tên khác";
 }
 
 if($nameerr != "" ){
-    header('location: ' . ADMIN_URL . "foods/edit-form.php?id=$id&nameerr=$nameerr&emailerr=$emailerr");
+    header('location: ' . ADMIN_URL . "foods/edit-form.php?id=$id&nameerr=$nameerr");
     die;
 }
 
