@@ -124,7 +124,6 @@ $roles = queryExecute($getRoleQuery, true);
                                 <button type="submit" class="btn btn-primary">Tạo</button>&nbsp;
                                 <a href="<?= ADMIN_URL . 'users'?>" class="btn btn-danger">Hủy</a>
                             </div>
-
                         </div>
                     </div>
 
@@ -155,13 +154,6 @@ $roles = queryExecute($getRoleQuery, true);
         }
         reader.readAsDataURL(file);
     };
-    $('.select2').select2();
-
-    //Initialize Select2 Elements
-    $('.select2bs4').select2({
-        theme: 'bootstrap4'
-    });
-
     $('#add-user-form').validate({
         rules: {
             name: {
@@ -191,10 +183,8 @@ $roles = queryExecute($getRoleQuery, true);
                 equalTo: "#main-password"
             },
             phone_number: {
+                required: true,
                 number: true
-            },
-            house_no: {
-                maxlength: 191
             },
             avatar: {
                 required: true,
@@ -221,12 +211,10 @@ $roles = queryExecute($getRoleQuery, true);
                 equalTo: "Cần khớp với mật khẩu"
             },
             phone_number: {
+                required: "Hãy nhập số điện thoại",
                 min: "Bắt buộc là số có 10 chữ số",
                 max: "Bắt buộc là số có 10 chữ số",
                 number: "Nhập định dạng số"
-            },
-            house_no: {
-                maxlength: "Số lượng ký tự tối đa bằng 191 ký tự"
             },
             avatar: {
                 required: "Hãy nhập ảnh đại diện",

@@ -2,31 +2,17 @@
 session_start();
 require_once '../../config/utils.php';
 checkAdminLoggedIn();
-$getTypeQuery = "select * from types";
-$types = queryExecute($getTypeQuery, true);
-
-$getPlaceQuery = "select * from places";
-$places = queryExecute($getPlaceQuery, true);
 
 $keyword = isset($_GET['keyword']) == true ? $_GET['keyword'] : "";
-$typeId = isset($_GET['typeSearch']) == true ? $_GET['typeSearch'] : "";
-$placeId = isset($_GET['placeSearch']) == true ? $_GET['placeSearch'] : "";
 
-$typeQuery = 'select * from types';
-$indextypes = queryExecute($typeQuery, true);
-// echo $loggedInUser['name'];
-
-$placeQuery = 'select * from places';
-$indexplaces = queryExecute($placeQuery, true);
-
-$foodQuery = "select * from foods ORDER BY id DESC";
+$foodQuery = "select * from foods";
 
 if ($keyword !== "") {
-    $foodQuery .= " where (name like '%$keyword%')";
+    $foodQuery .= " where (name like '%$keyword%') ORDER BY id DESC";
+} else {
+    $foodQuery .= " ORDER BY id DESC";
 }
-
-$getFoodQuery = "select * from foods ORDER BY id DESC";
-$foods = queryExecute($getFoodQuery, true);
+$foods = queryExecute($foodQuery, true); 
 
 for ($i = 0; $i < count($foods); $i++) {
     $getPlaceQuery = "select p.id,
@@ -34,7 +20,7 @@ for ($i = 0; $i < count($foods); $i++) {
 						from food_place fp
 						join places p 
 						on fp.place_id = p.id
-						where fp.food_id = " . $foods[$i]['id'];
+                        where fp.food_id = " . $foods[$i]['id'];
     $places = queryExecute($getPlaceQuery, true);
     $foods[$i]['places'] = $places;
 
@@ -48,7 +34,6 @@ for ($i = 0; $i < count($foods); $i++) {
     $types = queryExecute($getTypeQuery, true);
     $foods[$i]['types'] = $types;
 }
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -93,7 +78,7 @@ for ($i = 0; $i < count($foods); $i++) {
                     <div class="row">
                         <div class="col-md-10 col-offset-1">
                             <!-- Filter  -->
-                            <form action="" method="get">
+                            <form action="index.php" method="get">
                                 <div class="form-row">
                                     <div class="form-group col-4">
                                         <input type="text" value="<?= $keyword ?>" class="form-control" name="keyword" placeholder="Nhập tên thực phẩm, giá...">
@@ -190,8 +175,9 @@ for ($i = 0; $i < count($foods); $i++) {
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Đồng ý'
-                }).then((result) => { // arrow function es6 (es2015)
+                    confirmButtonText: 'Đồng ý',
+                    cancelButtonText: 'Hủy bỏ'
+                }).then((result) => {
                     if (result.value) {
                         window.location.href = redirectUrl;
                     }

@@ -4,7 +4,6 @@ session_start();
 require_once "./config/utils.php";
 
 $id = isset($_GET['id']) ? $_GET['id'] : -1;
-// $loggedInUser = $_SESSION[AUTH];
 
 $foodQuery = "select * from foods where id = '$id'";
 $foods = queryExecute($foodQuery, true);
@@ -35,22 +34,13 @@ $commentQuery = "select
                     cm.*, u.name as user_name, u.image as user_image
                     from comments cm
                     join users u
-                    on u.id = cm.user_id ORDER BY cm.id DESC LIMIT 2";
+                    on u.id = cm.user_id where food_id = $id ORDER BY cm.id DESC LIMIT 2";
 $comments = queryExecute($commentQuery, true);
 
 ?>
 
 <!DOCTYPE html>
-<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
-<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
-<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
-<!--[if (gte IE 9)|!(IE)]><!-->
 <html lang="en">
-<!--<![endif]-->
-
-
-<!-- Mirrored from frenify.com/envato/frenify/html/directify/1/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 26 Feb 2020 03:34:00 GMT -->
-
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="description" content="Directify">
@@ -193,28 +183,16 @@ $comments = queryExecute($commentQuery, true);
                 </div>
             </div>
             <!-- /BLOG -->
-
-
         </div>
         <!-- /CONTENT -->
 
         <!-- FOOTER -->
         <?php include_once '_share/footer.php' ?>
         <!-- /FOOTER -->
-
         <a class="totop" href="#"><i class="xcon-angle-up"></i></a>
-        <!--    <a class="listed" href="submit.html"><img class="svg" src="--><? //= THEME_ASSET_URL 
-                                                                                ?>
-        <!--img/svg/pencil.svg" alt="" /></a>-->
-
     </div>
     <!-- /WRAPPER ALL -->
-
     <!-- SCRIPTS -->
     <?php include_once '_share/script.php' ?>
-
 </body>
-
-<!-- Mirrored from frenify.com/envato/frenify/html/directify/1/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 26 Feb 2020 03:34:26 GMT -->
-
 </html>

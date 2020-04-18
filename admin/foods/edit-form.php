@@ -55,7 +55,7 @@ if (!$foods) {
             <section class="content">
                 <div class="container-fluid">
                     <!-- Small boxes (Stat box) -->
-                    <form id="edit-user-form" action="<?= ADMIN_URL . 'foods/save-edit.php' ?>" method="post" enctype="multipart/form-data">
+                    <form id="edit-food-form" action="<?= ADMIN_URL . 'foods/save-edit.php' ?>" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="id" value="<?= $foods['id'] ?>">
                         <div class="row">
                             <div class="col-md-6">
@@ -96,9 +96,6 @@ if (!$foods) {
                                 <div class="form-group">
                                     <label for="">Giá</label>
                                     <input type="number" class="form-control" name="price" value="<?= $foods['price'] ?>">
-                                    <?php if (isset($_GET['priceerr'])) : ?>
-                                        <label class="error"><?= $_GET['priceerr'] ?></label>
-                                    <?php endif; ?>
                                 </div>
                                 <div class="form-group">
                                     <label for="">Thời gian mở</label>
@@ -145,73 +142,69 @@ if (!$foods) {
             }
             reader.readAsDataURL(file);
         }
-        $('#add-food-form').validate({
-        rules:{
-            name: {
-                required: true,
-                maxlength: 191,
-                remote: {
-                    url: "<?= ADMIN_URL . 'foods/verify-food-existed.php'?>",
-                    type: "post",
-                    data: {
-                        name: function() {
-                            return $( "input[name='name']" ).val();
+        $('#edit-food-form').validate({
+            rules: {
+                name: {
+                    required: true,
+                    maxlength: 191,
+                    remote: {
+                        url: "<?= ADMIN_URL . 'foods/verify-food-existed.php' ?>",
+                        type: "post",
+                        data: {
+                            nameData: function() {
+                                return $("input[name='name']").val();
+                            },
+                            idData: <?= $foods['id'] ?>
                         }
                     }
                 },
+                price: {
+                    required: true,
+                    maxlength: 191
+                },
+                time_start: {
+                    required: true,
+                },
+                time_end: {
+                    required: true,
+                },
+                image: {
+                    extension: "png|jpg|jpeg|gif"
+                },
+                description: {
+                    required: true,
+                }
             },
-            price: {
-                required: true,
-                maxlength: 191
-            },
-            time_start:{
-                required: true,
-            },
-            time_end:{
-                required: true,
-            },
-            image: {
-                required: true,
-                extension: "png|jpg|jpeg|gif"
-            },
-            description:{
-                required: true,
+            messages: {
+                name: {
+                    required: "Hãy nhập tên thực phẩm",
+                    maxlength: "Số lượng ký tự tối đa bằng 191 ký tự",
+                    remote: "Tên thực phẩm đã tồn tại, vui lòng sử dụng thực phẩm khác"
+                },
+                place: {
+                    required: "Hãy nhập địa điểm"
+                },
+                type: {
+                    required: "Hãy nhập loại thực phẩm"
+                },
+                price: {
+                    required: "Hãy nhập giá",
+                    maxlength: "Số lượng ký tự tối đa bằng 191 ký tự"
+                },
+                time_start: {
+                    required: "Hãy nhập giờ mở bán"
+                },
+                time_end: {
+                    required: "Hãy nhập giờ đóng cửa"
+                },
+                image: {
+                    extension: "Hãy nhập đúng định dạng ảnh (jpg | jpeg | png | gif)"
+                },
+                description: {
+                    required: "Hãy nhập nội dung mô tả"
+                }
             }
-        },
-        messages: {
-            name: {
-                required: "Hãy nhập tên thực phẩm",
-                maxlength: "Số lượng ký tự tối đa bằng 191 ký tự",
-                remote: "Tên thực phẩm đã tồn tại, vui lòng sử dụng thực phẩm khác"
-            },
-            place: {
-                required: "Hãy nhập địa điểm"
-            },
-            type: {
-                required: "Hãy nhập loại thực phẩm"
-            },
-            price:{
-                required: "Hãy nhập giá",
-                maxlength: "Số lượng ký tự tối đa bằng 191 ký tự"
-            },
-            house_no:{
-                maxlength: "Số lượng ký tự tối đa bằng 191 ký tự"
-            },
-            time_start:{
-                required: "Hãy nhập giờ mở bán"
-            },
-            time_end:{
-                required: "Hãy nhập giờ đóng cửa"
-            },
-            image: {
-                required: "Hãy nhập ảnh đại diện",
-                extension: "Hãy nhập đúng định dạng ảnh (jpg | jpeg | png | gif)"
-            },
-            description: {
-                required: "Hãy nhập nội dung mô tả"
-            }
-        }
-    });
+        });
     </script>
 </body>
 

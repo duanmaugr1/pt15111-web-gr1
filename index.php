@@ -92,11 +92,6 @@ if ($keyword2 !== ""){
 
 $foods = queryExecute($foodQuery, true);
 
-
-
-$getFoodIdQuery = "select id from foods";
-$foodId = queryExecute($getFoodIdQuery, true);
-
 for ($i = 0; $i < count($foods); $i++) {
     $getAddressQuery = "select p.id,
 						p.name
